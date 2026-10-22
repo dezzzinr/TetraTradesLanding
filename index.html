@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TetraTrades — Trade crypto, copy top traders, and automate with bots</title>
+  <meta name="description" content="TetraTrades is a modern crypto trading platform with live market data, one-click copy trading, automated strategy bots and leveraged positions. Deposit and trade in your own currency. Get started free in minutes." />
+  <meta name="keywords" content="TetraTrades, crypto trading platform, copy trading, trading bots, bitcoin trading, ethereum, leveraged trading, crypto exchange" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TetraTrades" />
+  <meta property="og:title" content="TetraTrades — One platform to trade, copy and automate" />
+  <meta property="og:description" content="Live markets, copy trading, automated bots and multi-currency funding. Start free and trade in your own currency." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Applied before first paint: marks JS availability and restores the saved
+       theme so dark-mode visitors never see a white flash. Without JS the
+       stylesheet's prefers-color-scheme fallback handles theming instead. -->
+  <script>
+    (function () {
+      try {
+        var k = "tetratrades_theme";
+        var s = localStorage.getItem(k);
+        var t = (s === "light" || s === "dark")
+          ? s
+          : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) { /* storage unavailable; CSS media fallback applies */ }
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Stroke + brand icon sprite. Referenced everywhere as
+       <svg class="ic"><use href="#i-name"/></svg> so icons cost one definition. -->
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-tetra" viewBox="0 0 24 24"><path d="M12 2.5 21 9l-9 12.5L3 9z"/><path d="M3 9h18"/><path d="M12 2.5v19"/></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-landmark" viewBox="0 0 24 24"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-circle-play" viewBox="0 0 24 24"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"/><circle cx="12" cy="12" r="10"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+    <symbol id="i-trending-up" viewBox="0 0 24 24"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></symbol>
+    <symbol id="i-trending-down" viewBox="0 0 24 24"><path d="M16 17h6v-6"/><path d="m22 17-8.5-8.5-5 5L2 7"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></symbol>
+    <symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-radio" viewBox="0 0 24 24"><path d="M16.247 7.761a6 6 0 0 1 0 8.478"/><path d="M19.075 4.933a10 10 0 0 1 0 14.134"/><path d="M4.925 19.067a10 10 0 0 1 0-14.134"/><path d="M7.753 16.239a6 6 0 0 1 0-8.478"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-earth" viewBox="0 0 24 24"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+    <symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></symbol>
+    <symbol id="s-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+    <symbol id="s-telegram" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm4.962 7.224c.1-.002.321.023.465.14a.5.5 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+    <symbol id="s-discord" viewBox="0 0 24 24"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03M8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418m7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418"/></symbol>
+    <symbol id="s-youtube" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814M9.545 15.568V8.432L15.818 12z"/></symbol>
+  </svg>
+
+  <input type="checkbox" id="nav-toggle" class="nav-check" />
+
+  <header class="nav" id="nav">
+    <div class="shell nav-inner">
+      <a href="#top" class="brand" aria-label="TetraTrades — home">
+        <span class="brand-tile" aria-hidden="true">
+          <svg class="ic" width="18" height="18" style="stroke-width:1.9"><use href="#i-tetra"/></svg>
+        </span>
+        <span class="brand-name">Tetra<span>Trades</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="#markets">Markets</a>
+        <a class="nav-link" href="#platform">Platform</a>
+        <a class="nav-link" href="#how">How it works</a>
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#plans">Plans</a>
+      </nav>
+
+      <span class="nav-spacer"></span>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-round" id="theme-toggle" aria-label="Switch theme" title="Switch theme">
+          <svg class="ic ic-sun" width="18" height="18"><use href="#i-sun"/></svg>
+          <svg class="ic ic-moon" width="18" height="18"><use href="#i-moon"/></svg>
+        </button>
+        <a class="btn btn--quiet btn--sm" href="https://tetra-trades.vercel.app/">Log in</a>
+        <a class="btn btn--primary btn--sm" href="https://tetra-trades.vercel.app/">
+          Sign up <svg class="ic" width="15" height="15"><use href="#i-arrow-right"/></svg>
+        </a>
+        <label class="icon-round nav-burger" for="nav-toggle" title="Menu">
+          <svg class="ic ic-open" width="19" height="19"><use href="#i-menu"/></svg>
+          <svg class="ic ic-close" width="19" height="19"><use href="#i-x"/></svg>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer" id="drawer">
+    <a href="#markets">Markets</a>
+    <a href="#platform">Platform</a>
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#plans">Plans</a>
+    <div class="drawer-cta">
+      <a class="btn btn--ghost" href="https://tetra-trades.vercel.app/">Log in</a>
+      <a class="btn btn--primary" href="https://tetra-trades.vercel.app/">
+        Create free account <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <div class="reveal">
+            <span class="eyebrow">
+              <svg class="ic" width="13" height="13"><use href="#i-shield-check"/></svg>
+              The all-in-one trading platform
+            </span>
+          </div>
+
+          <div class="reveal" style="--reveal-delay:70ms">
+            <h1 class="h-display hero-title">One place to <em class="gradient-text">trade</em>, copy and automate your crypto.</h1>
+          </div>
+
+          <div class="reveal" style="--reveal-delay:140ms">
+            <p class="lede">
+              Live market data, one-click copy trading, strategy bots and leveraged positions — with
+              deposits, trades and withdrawals shown in your own currency. Open a free account in under
+              two minutes.
+            </p>
+          </div>
+
+          <div class="reveal" style="--reveal-delay:200ms">
+            <ul class="verb-strip" aria-label="What you can do on TetraTrades">
+              <li><svg class="ic" width="15" height="15" style="stroke-width:2.4"><use href="#i-landmark"/></svg> Deposit</li>
+              <li><svg class="ic" width="15" height="15" style="stroke-width:2.4"><use href="#i-repeat"/></svg> Trade</li>
+              <li><svg class="ic" width="15" height="15" style="stroke-width:2.4"><use href="#i-sparkles"/></svg> Copy</li>
+              <li><svg class="ic" width="15" height="15" style="stroke-width:2.4"><use href="#i-bot"/></svg> Automate</li>
+              <li><svg class="ic" width="15" height="15" style="stroke-width:2.4"><use href="#i-wallet"/></svg> Withdraw</li>
+            </ul>
+          </div>
+
+          <div class="reveal" style="--reveal-delay:260ms">
+            <div class="btn-row">
+              <a class="btn btn--primary btn--lg" href="https://tetra-trades.vercel.app/">
+                Sign up free <svg class="ic" width="17" height="17"><use href="#i-arrow-right"/></svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="https://tetra-trades.vercel.app/">
+                <svg class="ic" width="17" height="17"><use href="#i-circle-play"/></svg> Try the demo account
+              </a>
+            </div>
+          </div>
+
+          <div class="reveal" style="--reveal-delay:320ms">
+            <div class="hero-proof">
+              <div><strong class="num">120k+</strong><span>Registered traders</span></div>
+              <div><strong class="num">$2.4B</strong><span>Volume traded</span></div>
+              <div><strong class="num">40+</strong><span>Currencies supported</span></div>
+              <div><strong class="num">24/7</strong><span>Live support</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal hero-visual" style="--reveal-delay:180ms">
+          <div class="float-card">
+            <div class="mock">
+              <div class="mock-bar" aria-hidden="true">
+                <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                <span class="mock-title">TetraTrades — Portfolio</span>
+              </div>
+              <div class="mock-body">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+                  <div>
+                    <span style="font-size:11.5px;color:var(--faint);font-weight:650;text-transform:uppercase;letter-spacing:.06em">Portfolio value</span>
+                    <strong class="num" style="display:block;font-size:28px;font-weight:800;letter-spacing:-.035em;margin-top:2px">$24,812.40</strong>
+                    <span class="up num nowrap" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700">
+                      <svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> +$1,284.19 (5.44%) today
+                    </span>
+                  </div>
+                  <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Live</span>
+                </div>
+
+                <svg class="mock-chart" viewBox="0 0 320 100" preserveAspectRatio="none" aria-hidden="true">
+                  <path class="area" d="M0.0,94.0 C3.1,93.2 12.5,89.7 18.8,89.4 C25.1,89.2 31.4,93.5 37.6,92.5 C43.9,91.5 50.2,84.4 56.5,83.4 C62.7,82.4 69.0,87.7 75.3,86.4 C81.6,85.1 87.8,77.1 94.1,75.8 C100.4,74.5 106.7,80.3 112.9,78.8 C119.2,77.3 125.5,68.2 131.8,66.7 C138.0,65.2 144.3,71.2 150.6,69.7 C156.9,68.2 163.1,58.9 169.4,57.6 C175.7,56.3 182.0,63.7 188.2,62.1 C194.5,60.6 200.8,52.0 207.1,48.5 C213.3,44.9 219.6,41.4 225.9,40.9 C232.2,40.4 238.4,47.5 244.7,45.4 C251.0,43.4 257.3,30.8 263.5,28.8 C269.8,26.7 276.1,35.3 282.4,33.3 C288.6,31.3 294.9,21.2 301.2,16.6 C307.5,12.1 316.9,7.8 320.0,6.0 L320,100 L0,100 Z" fill="var(--blue)"></path>
+                  <path class="line" d="M0.0,94.0 C3.1,93.2 12.5,89.7 18.8,89.4 C25.1,89.2 31.4,93.5 37.6,92.5 C43.9,91.5 50.2,84.4 56.5,83.4 C62.7,82.4 69.0,87.7 75.3,86.4 C81.6,85.1 87.8,77.1 94.1,75.8 C100.4,74.5 106.7,80.3 112.9,78.8 C119.2,77.3 125.5,68.2 131.8,66.7 C138.0,65.2 144.3,71.2 150.6,69.7 C156.9,68.2 163.1,58.9 169.4,57.6 C175.7,56.3 182.0,63.7 188.2,62.1 C194.5,60.6 200.8,52.0 207.1,48.5 C213.3,44.9 219.6,41.4 225.9,40.9 C232.2,40.4 238.4,47.5 244.7,45.4 C251.0,43.4 257.3,30.8 263.5,28.8 C269.8,26.7 276.1,35.3 282.4,33.3 C288.6,31.3 294.9,21.2 301.2,16.6 C307.5,12.1 316.9,7.8 320.0,6.0"></path>
+                </svg>
+
+                <div class="mock-metric-grid">
+                  <div class="mock-metric"><span>Open P&amp;L</span><strong class="up num">+$842.10</strong></div>
+                  <div class="mock-metric"><span>Cash</span><strong class="num">$9,410.00</strong></div>
+                  <div class="mock-metric"><span>Positions</span><strong class="num">7</strong></div>
+                </div>
+
+                <div class="mock-row">
+                  <span class="mock-id">
+                    <span class="mock-avatar">B</span>
+                    <span><strong>BTC</strong><small>Bitcoin · 0.18402</small></span>
+                  </span>
+                  <span class="mock-num num">$15,172.60<small class="up">+2.41%</small></span>
+                </div>
+                <div class="mock-row">
+                  <span class="mock-id">
+                    <span class="mock-avatar">E</span>
+                    <span><strong>ETH</strong><small>Ethereum · 3.4021</small></span>
+                  </span>
+                  <span class="mock-num num">$8,271.94<small class="down">-0.86%</small></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pill-badge pill-badge--tl">
+            <span>
+              <span style="display:flex;align-items:center;gap:6px">
+                <svg class="ic" width="14" height="14" style="color:var(--green)"><use href="#i-arrow-up-right"/></svg> BTC
+              </span>
+              <small class="num" style="color:var(--ink);font-weight:750;font-size:14px">$82,443 · +2.4%</small>
+            </span>
+          </div>
+          <div class="pill-badge pill-badge--br">
+            <span>
+              <span style="display:flex;align-items:center;gap:6px">
+                <svg class="ic" width="14" height="14" style="color:var(--green)"><use href="#i-arrow-up-right"/></svg> Bot P&amp;L
+              </span>
+              <small class="num" style="color:var(--ink);font-weight:750;font-size:14px">+$412.80 · Scalper</small>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LIVE TICKER ================= -->
+    <div class="ticker-wrap" id="markets">
+      <div class="shell">
+        <div class="ticker-head">
+          <div class="ticker-tabs" role="tablist" aria-label="Market views">
+            <button type="button" role="tab" id="tab-hot" aria-selected="true" class="ticker-tab" data-sort="hot">Hot coins</button>
+            <button type="button" role="tab" id="tab-gainers" aria-selected="false" class="ticker-tab" data-sort="gainers">Gainers</button>
+            <button type="button" role="tab" id="tab-losers" aria-selected="false" class="ticker-tab" data-sort="losers">Losers</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <span class="live-dot" id="ticker-status" data-state="loading" aria-live="polite">
+              <i aria-hidden="true"></i><span id="ticker-status-label">Fetching live prices</span>
+            </span>
+            <button type="button" class="icon-round" id="ticker-refresh" style="width:32px;height:32px" aria-label="Refresh prices" title="Refresh prices">
+              <svg class="ic" width="14" height="14"><use href="#i-refresh-cw"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="rail" id="coin-rail" role="tabpanel" aria-labelledby="tab-hot">
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">B</span>
+              <span><span class="coin-sym">BTC/USDT</span><span class="coin-name">Bitcoin</span></span>
+            </div>
+            <div class="coin-price num">$82,443.80</div>
+            <div class="coin-meta">
+              <span class="coin-change num up"><svg class="ic" width="12" height="12"><use href="#i-trending-up"/></svg> +0.38%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,18.97 L2.70,20.50 L5.39,19.69 L8.09,14.59 L10.78,12.52 L13.48,11.84 L16.17,7.87 L18.87,3.46 L21.57,7.16 L24.26,1.96 L26.96,4.36 L29.65,6.92 L32.35,1.76 L35.04,5.61 L37.74,6.33 L40.43,10.46 L43.13,14.19 L45.83,12.11 L48.52,7.62 L51.22,4.23 L53.91,1.50 L56.61,5.31 L59.30,3.77 L62.00,3.40" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">E</span>
+              <span><span class="coin-sym">ETH/USDT</span><span class="coin-name">Ethereum</span></span>
+            </div>
+            <div class="coin-price num">$2,431.40</div>
+            <div class="coin-meta">
+              <span class="coin-change num up"><svg class="ic" width="12" height="12"><use href="#i-trending-up"/></svg> +1.18%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,20.43 L2.70,20.50 L5.39,20.06 L8.09,15.01 L10.78,16.68 L13.48,15.75 L16.17,11.35 L18.87,14.46 L21.57,17.42 L24.26,12.78 L26.96,14.07 L29.65,15.16 L32.35,13.30 L35.04,10.55 L37.74,12.62 L40.43,11.79 L43.13,12.18 L45.83,13.85 L48.52,12.59 L51.22,7.88 L53.91,7.01 L56.61,5.62 L59.30,1.50 L62.00,5.07" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">S</span>
+              <span><span class="coin-sym">SOL/USDT</span><span class="coin-name">Solana</span></span>
+            </div>
+            <div class="coin-price num">$105.30</div>
+            <div class="coin-meta">
+              <span class="coin-change num up"><svg class="ic" width="12" height="12"><use href="#i-trending-up"/></svg> +0.77%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,20.50 L2.70,19.56 L5.39,19.12 L8.09,19.54 L10.78,17.87 L13.48,14.97 L16.17,17.43 L18.87,14.36 L21.57,12.75 L24.26,12.37 L26.96,10.66 L29.65,8.63 L32.35,9.71 L35.04,9.49 L37.74,10.43 L40.43,9.45 L43.13,6.40 L45.83,7.17 L48.52,6.71 L51.22,3.51 L53.91,3.46 L56.61,3.16 L59.30,4.53 L62.00,1.50" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">X</span>
+              <span><span class="coin-sym">XRP/USDT</span><span class="coin-name">XRP</span></span>
+            </div>
+            <div class="coin-price num">$2.41</div>
+            <div class="coin-meta">
+              <span class="coin-change num down"><svg class="ic" width="12" height="12"><use href="#i-trending-down"/></svg> -0.62%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,20.50 L2.70,17.07 L5.39,13.64 L8.09,18.54 L10.78,14.76 L13.48,11.44 L16.17,7.60 L18.87,8.82 L21.57,11.32 L24.26,8.63 L26.96,4.41 L29.65,1.50 L32.35,4.69 L35.04,4.61 L37.74,6.57 L40.43,7.14 L43.13,5.68 L45.83,7.05 L48.52,5.77 L51.22,8.21 L53.91,11.31 L56.61,13.00 L59.30,15.21 L62.00,16.80" stroke="var(--red)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">A</span>
+              <span><span class="coin-sym">ADA/USDT</span><span class="coin-name">Cardano</span></span>
+            </div>
+            <div class="coin-price num">$0.6841</div>
+            <div class="coin-meta">
+              <span class="coin-change num up"><svg class="ic" width="12" height="12"><use href="#i-trending-up"/></svg> +2.14%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,20.50 L2.70,16.24 L5.39,17.64 L8.09,13.94 L10.78,15.11 L13.48,15.35 L16.17,13.61 L18.87,14.14 L21.57,14.50 L24.26,13.26 L26.96,9.68 L29.65,6.12 L32.35,6.78 L35.04,8.21 L37.74,3.98 L40.43,1.50 L43.13,3.96 L45.83,6.37 L48.52,7.21 L51.22,9.81 L53.91,9.36 L56.61,6.61 L59.30,6.56 L62.00,4.71" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">D</span>
+              <span><span class="coin-sym">DOGE/USDT</span><span class="coin-name">Dogecoin</span></span>
+            </div>
+            <div class="coin-price num">$0.1523</div>
+            <div class="coin-meta">
+              <span class="coin-change num down"><svg class="ic" width="12" height="12"><use href="#i-trending-down"/></svg> -1.87%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,3.03 L2.70,4.90 L5.39,4.00 L8.09,1.50 L10.78,2.24 L13.48,1.72 L16.17,5.72 L18.87,3.80 L21.57,5.45 L24.26,8.38 L26.96,5.53 L29.65,4.05 L32.35,6.93 L35.04,6.15 L37.74,3.62 L40.43,7.19 L43.13,9.87 L45.83,11.27 L48.52,12.86 L51.22,15.07 L53.91,19.11 L56.61,17.13 L59.30,20.50 L62.00,18.28" stroke="var(--red)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">L</span>
+              <span><span class="coin-sym">LINK/USDT</span><span class="coin-name">Chainlink</span></span>
+            </div>
+            <div class="coin-price num">$15.89</div>
+            <div class="coin-meta">
+              <span class="coin-change num up"><svg class="ic" width="12" height="12"><use href="#i-trending-up"/></svg> +2.23%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,15.62 L2.70,15.53 L5.39,9.51 L8.09,10.99 L10.78,13.06 L13.48,13.54 L16.17,16.26 L18.87,19.87 L21.57,20.50 L24.26,18.49 L26.96,15.15 L29.65,10.65 L32.35,9.31 L35.04,9.29 L37.74,11.95 L40.43,11.43 L43.13,12.31 L45.83,6.95 L48.52,5.30 L51.22,1.50 L53.91,2.18 L56.61,3.68 L59.30,6.42 L62.00,8.69" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">A</span>
+              <span><span class="coin-sym">AVAX/USDT</span><span class="coin-name">Avalanche</span></span>
+            </div>
+            <div class="coin-price num">$24.61</div>
+            <div class="coin-meta">
+              <span class="coin-change num up"><svg class="ic" width="12" height="12"><use href="#i-trending-up"/></svg> +0.94%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,14.04 L2.70,12.51 L5.39,10.44 L8.09,13.76 L10.78,14.53 L13.48,15.92 L16.17,15.70 L18.87,16.60 L21.57,18.51 L24.26,20.50 L26.96,15.49 L29.65,10.50 L32.35,13.25 L35.04,12.11 L37.74,8.56 L40.43,4.54 L43.13,1.50 L45.83,4.73 L48.52,3.08 L51.22,2.60 L53.91,6.31 L56.61,8.21 L59.30,9.75 L62.00,5.10" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">D</span>
+              <span><span class="coin-sym">DOT/USDT</span><span class="coin-name">Polkadot</span></span>
+            </div>
+            <div class="coin-price num">$3.18</div>
+            <div class="coin-meta">
+              <span class="coin-change num down"><svg class="ic" width="12" height="12"><use href="#i-trending-down"/></svg> -0.41%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,8.88 L2.70,4.85 L5.39,8.50 L8.09,9.93 L10.78,12.71 L13.48,14.47 L16.17,12.58 L18.87,15.39 L21.57,10.21 L24.26,12.10 L26.96,9.77 L29.65,6.50 L32.35,1.50 L35.04,4.97 L37.74,10.43 L40.43,12.72 L43.13,13.26 L45.83,13.03 L48.52,14.87 L51.22,18.98 L53.91,13.85 L56.61,15.97 L59.30,15.26 L62.00,20.50" stroke="var(--red)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+          <article class="coin-card">
+            <div class="coin-top">
+              <span class="coin-icon">L</span>
+              <span><span class="coin-sym">LTC/USDT</span><span class="coin-name">Litecoin</span></span>
+            </div>
+            <div class="coin-price num">$92.47</div>
+            <div class="coin-meta">
+              <span class="coin-change num up"><svg class="ic" width="12" height="12"><use href="#i-trending-up"/></svg> +1.06%</span>
+              <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,17.06 L2.70,18.60 L5.39,19.92 L8.09,18.57 L10.78,17.48 L13.48,18.80 L16.17,20.50 L18.87,19.03 L21.57,16.49 L24.26,18.35 L26.96,17.95 L29.65,14.93 L32.35,12.95 L35.04,12.72 L37.74,10.06 L40.43,10.28 L43.13,7.38 L45.83,5.68 L48.52,4.82 L51.22,4.54 L53.91,3.64 L56.61,5.18 L59.30,3.19 L62.00,1.50" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= STATS ================= -->
+    <section class="section section--tight" aria-label="TetraTrades by the numbers">
+      <div class="shell">
+        <div class="reveal">
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-value num" data-count="200" data-suffix="+">200+</span>
+              <span class="stat-label">Crypto assets listed</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value num" data-count="480" data-prefix="$" data-suffix="M+">$480M+</span>
+              <span class="stat-label">Average daily volume</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value num" data-count="99.9" data-decimals="1" data-suffix="%">99.9%</span>
+              <span class="stat-label">Platform uptime</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value num" data-count="150" data-suffix="+">150+</span>
+              <span class="stat-label">Countries served</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PLATFORM TABS ================= -->
+    <section class="section" id="platform">
+      <div class="shell">
+        <div class="reveal">
+          <div class="section-head">
+            <span class="eyebrow"><svg class="ic" width="13" height="13"><use href="#i-zap"/></svg> One platform, endless possibilities</span>
+            <h2 class="h-section">Every way to put your capital to work.</h2>
+            <p class="lede">
+              Trade it yourself, copy someone who already does, or hand it to a bot. All four live in the
+              same account, sharing one balance and one set of prices.
+            </p>
+          </div>
+        </div>
+
+        <div class="reveal" style="--reveal-delay:80ms">
+          <div class="showcase-tabs" role="tablist" aria-label="Platform features">
+            <button type="button" role="tab" id="panel-tab-copy" aria-selected="true" aria-controls="panel-copy" class="showcase-tab is-active" data-panel-btn="copy">
+              <svg class="ic" width="16" height="16" style="stroke-width:2.3"><use href="#i-users"/></svg> Copy trading
+            </button>
+            <button type="button" role="tab" id="panel-tab-bots" aria-selected="false" aria-controls="panel-bots" class="showcase-tab" data-panel-btn="bots">
+              <svg class="ic" width="16" height="16" style="stroke-width:2.3"><use href="#i-bot"/></svg> Trading bots
+            </button>
+            <button type="button" role="tab" id="panel-tab-trade" aria-selected="false" aria-controls="panel-trade" class="showcase-tab" data-panel-btn="trade">
+              <svg class="ic" width="16" height="16" style="stroke-width:2.3"><use href="#i-trending-up"/></svg> Spot &amp; margin
+            </button>
+            <button type="button" role="tab" id="panel-tab-plans" aria-selected="false" aria-controls="panel-plans" class="showcase-tab" data-panel-btn="plans">
+              <svg class="ic" width="16" height="16" style="stroke-width:2.3"><use href="#i-check"/></svg> Plans
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel 1: copy trading -->
+        <div class="showcase-panel is-active" id="panel-copy" role="tabpanel" aria-labelledby="panel-tab-copy" data-panel="copy">
+          <div class="panel-enter">
+            <h3 style="font-size:clamp(22px,2.6vw,30px);letter-spacing:-.028em;line-height:1.16;font-weight:800">Copy the traders who already know what they're doing.</h3>
+            <p class="lede" style="margin-top:14px">
+              Browse a ranked leaderboard of strategies, inspect their win rate and drawdown, then mirror
+              their trades into your own account with one click.
+            </p>
+            <div class="panel-points">
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-trending-up"/></svg></span>
+                <span><strong>Ranked by real performance</strong><p>ROI, win rate and copier count, updated as positions close.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-sliders-horizontal"/></svg></span>
+                <span><strong>You keep the controls</strong><p>Set your own allocation per trader and stop copying at any moment.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-zap"/></svg></span>
+                <span><strong>Trades mirror instantly</strong><p>Entries, exits and adjustments land in your account automatically.</p></span>
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top:24px">
+              <a class="btn btn--primary" href="https://tetra-trades.vercel.app/">Get started free <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg></a>
+            </div>
+          </div>
+          <div class="panel-enter" style="animation-delay:90ms">
+            <div class="mock">
+              <div class="mock-bar" aria-hidden="true"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-title">TetraTrades — Copy trading</span></div>
+              <div class="mock-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <strong style="font-size:15px;font-weight:750;letter-spacing:-.02em">Top traders this month</strong>
+                  <span class="chip"><svg class="ic" width="12" height="12"><use href="#i-users"/></svg> 5,766 copiers</span>
+                </div>
+                <div class="mock-row">
+                  <span class="mock-id"><span class="mock-avatar">NQ</span><span><strong>Nova Quant</strong><small>2,418 copying · 78% win rate</small></span></span>
+                  <span style="display:flex;align-items:center;gap:12px"><span class="mock-num num up">+184.2%</span><span class="chip chip--brand" style="padding:5px 12px">Copy</span></span>
+                </div>
+                <div class="mock-row">
+                  <span class="mock-id"><span class="mock-avatar">DM</span><span><strong>Delta Momentum</strong><small>1,906 copying · 71% win rate</small></span></span>
+                  <span style="display:flex;align-items:center;gap:12px"><span class="mock-num num up">+132.7%</span><span class="chip chip--brand" style="padding:5px 12px">Copy</span></span>
+                </div>
+                <div class="mock-row">
+                  <span class="mock-id"><span class="mock-avatar">AS</span><span><strong>Arctic Scalper</strong><small>1,442 copying · 68% win rate</small></span></span>
+                  <span style="display:flex;align-items:center;gap:12px"><span class="mock-num num up">+96.4%</span><span class="chip chip--brand" style="padding:5px 12px">Copy</span></span>
+                </div>
+                <div class="mock-metric" style="margin-top:2px">
+                  <span>Your copied positions</span>
+                  <strong class="num up">+$1,940.22</strong>
+                  <div class="bar-track"><div class="bar-fill bar-fill--green" style="width:74%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: bots -->
+        <div class="showcase-panel" id="panel-bots" role="tabpanel" aria-labelledby="panel-tab-bots" data-panel="bots">
+          <div class="panel-enter">
+            <h3 style="font-size:clamp(22px,2.6vw,30px);letter-spacing:-.028em;line-height:1.16;font-weight:800">Automate a strategy and let it run around the clock.</h3>
+            <p class="lede" style="margin-top:14px">
+              Prebuilt bots execute your chosen strategy 24/7 — no charts to watch, no emotions at 3am.
+              Allocate funds, pick a market, and pull the plug whenever you want.
+            </p>
+            <div class="panel-points">
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-bot"/></svg></span>
+                <span><strong>Ready-made strategies</strong><p>Scalping, grid and trend-following bots you can start in seconds.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-gauge"/></svg></span>
+                <span><strong>Allocation you decide</strong><p>Fund a bot with as little or as much as you're comfortable risking.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-target"/></svg></span>
+                <span><strong>Stop any time</strong><p>Pause or close a running bot and your remaining allocation returns instantly.</p></span>
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top:24px">
+              <a class="btn btn--primary" href="https://tetra-trades.vercel.app/">Get started free <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg></a>
+            </div>
+          </div>
+          <div class="panel-enter" style="animation-delay:90ms">
+            <div class="mock">
+              <div class="mock-bar" aria-hidden="true"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-title">TetraTrades — Trading bots</span></div>
+              <div class="mock-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <strong style="font-size:15px;font-weight:750;letter-spacing:-.02em">Active strategies</strong>
+                  <span class="chip chip--up"><svg class="ic" width="12" height="12"><use href="#i-bot"/></svg> 2 running</span>
+                </div>
+                <div class="mock-row" style="display:block">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                    <span class="mock-id"><span class="mock-avatar"><svg class="ic" width="15" height="15"><use href="#i-bot"/></svg></span><span><strong>Scalper Bot</strong><small>BTC/USDT · Running</small></span></span>
+                    <span class="mock-num num up">+$412.80</span>
+                  </div>
+                  <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+                </div>
+                <div class="mock-row" style="display:block">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                    <span class="mock-id"><span class="mock-avatar"><svg class="ic" width="15" height="15"><use href="#i-bot"/></svg></span><span><strong>Grid Master</strong><small>ETH/USDT · Running</small></span></span>
+                    <span class="mock-num num up">+$226.40</span>
+                  </div>
+                  <div class="bar-track"><div class="bar-fill" style="width:61%"></div></div>
+                </div>
+                <div class="mock-row" style="display:block">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                    <span class="mock-id"><span class="mock-avatar"><svg class="ic" width="15" height="15"><use href="#i-bot"/></svg></span><span><strong>Trend Rider</strong><small>SOL/USDT · Paused</small></span></span>
+                    <span class="mock-num num down">-$48.10</span>
+                  </div>
+                  <div class="bar-track"><div class="bar-fill" style="width:24%"></div></div>
+                </div>
+                <div class="mock-metric-grid">
+                  <div class="mock-metric"><span>Trades</span><strong class="num">1,284</strong></div>
+                  <div class="mock-metric"><span>Win rate</span><strong class="num up">68.4%</strong></div>
+                  <div class="mock-metric"><span>Uptime</span><strong class="num">99.9%</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: spot & margin -->
+        <div class="showcase-panel" id="panel-trade" role="tabpanel" aria-labelledby="panel-tab-trade" data-panel="trade">
+          <div class="panel-enter">
+            <h3 style="font-size:clamp(22px,2.6vw,30px);letter-spacing:-.028em;line-height:1.16;font-weight:800">Trade 200+ markets with live pricing and real risk tools.</h3>
+            <p class="lede" style="margin-top:14px">
+              Market and limit orders, leveraged positions with liquidation levels, take-profit and
+              stop-loss, plus alerts that fire when a price is hit.
+            </p>
+            <div class="panel-points">
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-zap"/></svg></span>
+                <span><strong>Market &amp; limit orders</strong><p>Fill instantly or set a trigger price and wait for the market to come to you.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-sliders-horizontal"/></svg></span>
+                <span><strong>Leverage with guardrails</strong><p>Choose your multiple and see entry, liquidation, TP and SL before you commit.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-bell"/></svg></span>
+                <span><strong>Price alerts</strong><p>Get notified the moment an asset crosses a level you set.</p></span>
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top:24px">
+              <a class="btn btn--primary" href="https://tetra-trades.vercel.app/">Get started free <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg></a>
+            </div>
+          </div>
+          <div class="panel-enter" style="animation-delay:90ms">
+            <div class="mock">
+              <div class="mock-bar" aria-hidden="true"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-title">TetraTrades — Trade</span></div>
+              <div class="mock-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <span class="mock-id"><span class="mock-avatar">B</span><span><strong>BTC/USDT</strong><small>Perpetual · 5x leverage</small></span></span>
+                  <span class="mock-num num">$82,443.80</span>
+                </div>
+                <svg class="mock-chart" viewBox="0 0 320 100" preserveAspectRatio="none" aria-hidden="true">
+                  <path class="area" d="M0.0,94.0 C4.8,92.3 19.4,84.1 29.1,83.6 C38.8,83.2 48.5,93.1 58.2,91.4 C67.9,89.7 77.6,78.0 87.3,73.3 C97.0,68.5 106.7,62.5 116.4,62.9 C126.1,63.4 135.8,77.2 145.5,75.9 C155.2,74.6 164.8,61.2 174.5,55.2 C184.2,49.1 193.9,40.5 203.6,39.6 C213.3,38.8 223.0,52.2 232.7,50.0 C242.4,47.8 252.1,28.9 261.8,26.7 C271.5,24.5 281.2,40.5 290.9,37.1 C300.6,33.6 315.2,11.2 320.0,6.0 L320,100 L0,100 Z" fill="var(--blue)"></path>
+                  <path class="line" d="M0.0,94.0 C4.8,92.3 19.4,84.1 29.1,83.6 C38.8,83.2 48.5,93.1 58.2,91.4 C67.9,89.7 77.6,78.0 87.3,73.3 C97.0,68.5 106.7,62.5 116.4,62.9 C126.1,63.4 135.8,77.2 145.5,75.9 C155.2,74.6 164.8,61.2 174.5,55.2 C184.2,49.1 193.9,40.5 203.6,39.6 C213.3,38.8 223.0,52.2 232.7,50.0 C242.4,47.8 252.1,28.9 261.8,26.7 C271.5,24.5 281.2,40.5 290.9,37.1 C300.6,33.6 315.2,11.2 320.0,6.0"></path>
+                </svg>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <span style="padding:11px 14px;border-radius:12px;background:var(--green);color:#04150e;font-weight:750;font-size:14px;text-align:center">Buy / Long</span>
+                  <span style="padding:11px 14px;border-radius:12px;background:var(--red);color:#1a0507;font-weight:750;font-size:14px;text-align:center">Sell / Short</span>
+                </div>
+                <div class="mock-row">
+                  <span class="mock-id"><span><strong>Open position</strong><small>Entry $80,120.44 · Liq. $72,108.40</small></span></span>
+                  <span class="mock-num num up">+$2,323.36<small class="up">+14.5%</small></span>
+                </div>
+                <div class="mock-metric-grid">
+                  <div class="mock-metric"><span>Margin</span><strong class="num">$2,000.00</strong></div>
+                  <div class="mock-metric"><span>Take profit</span><strong class="num">$88,000.00</strong></div>
+                  <div class="mock-metric"><span>Stop loss</span><strong class="num">$76,500.00</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: plans -->
+        <div class="showcase-panel" id="panel-plans" role="tabpanel" aria-labelledby="panel-tab-plans" data-panel="plans">
+          <div class="panel-enter">
+            <h3 style="font-size:clamp(22px,2.6vw,30px);letter-spacing:-.028em;line-height:1.16;font-weight:800">Start free. Upgrade only when your volume grows.</h3>
+            <p class="lede" style="margin-top:14px">
+              Every account begins on the free Starter plan with full access to markets. Paid plans raise
+              your position sizes, bot slots and copy-trading allowance.
+            </p>
+            <div class="panel-points">
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-check"/></svg></span>
+                <span><strong>Free forever tier</strong><p>Live markets, trading and alerts — no card required to begin.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-users"/></svg></span>
+                <span><strong>Scales with you</strong><p>Higher limits and more automation slots as you move up a tier.</p></span>
+              </div>
+              <div class="panel-point">
+                <span class="panel-point-ico"><svg class="ic" width="17" height="17" style="stroke-width:2.3"><use href="#i-arrow-right"/></svg></span>
+                <span><strong>Cancel any time</strong><p>Downgrade back to Starter instantly, no lock-in or exit fee.</p></span>
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top:24px">
+              <a class="btn btn--primary" href="https://tetra-trades.vercel.app/">Get started free <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg></a>
+            </div>
+          </div>
+          <div class="panel-enter" style="animation-delay:90ms">
+            <div class="mock">
+              <div class="mock-bar" aria-hidden="true"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-title">TetraTrades — Your plan</span></div>
+              <div class="mock-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <strong style="font-size:15px;font-weight:750;letter-spacing:-.02em">Pro membership</strong>
+                  <span class="chip chip--brand">Active</span>
+                </div>
+                <div class="mock-metric" style="margin-top:2px">
+                  <span>Monthly trading volume</span>
+                  <strong class="num">$182,400 / $250,000</strong>
+                  <div class="bar-track"><div class="bar-fill" style="width:73%"></div></div>
+                </div>
+                <div class="mock-row"><span class="mock-id"><span><strong style="font-weight:600;font-size:13.4px">Copy trading slots</strong></span></span><span class="mock-num num" style="color:var(--muted)">3 of 5 used</span></div>
+                <div class="mock-row"><span class="mock-id"><span><strong style="font-weight:600;font-size:13.4px">Active bots</strong></span></span><span class="mock-num num" style="color:var(--muted)">2 of 10 used</span></div>
+                <div class="mock-row"><span class="mock-id"><span><strong style="font-weight:600;font-size:13.4px">Max position size</strong></span></span><span class="mock-num num" style="color:var(--muted)">$50,000</span></div>
+                <div class="mock-row"><span class="mock-id"><span><strong style="font-weight:600;font-size:13.4px">Renews</strong></span></span><span class="mock-num num" style="color:var(--muted)">12 Nov 2026</span></div>
+                <div class="mock-row" style="background:var(--green-wash);border-color:transparent">
+                  <span class="mock-id">
+                    <svg class="ic" width="16" height="16" style="color:var(--green)"><use href="#i-check"/></svg>
+                    <span><strong style="font-weight:650;font-size:13.4px">Upgrade to Elite</strong><small>Unlocks 20 bot slots and $250k positions</small></span>
+                  </span>
+                  <svg class="ic" width="16" height="16" style="color:var(--green)"><use href="#i-arrow-up-right"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section class="section" id="how">
+      <div class="shell">
+        <div class="reveal">
+          <div class="section-head section-head--center">
+            <span class="eyebrow">Getting started</span>
+            <h2 class="h-section">From zero to your first trade in minutes.</h2>
+            <p class="lede">Three steps, and the first one costs nothing.</p>
+          </div>
+        </div>
+        <div class="steps">
+          <div class="reveal">
+            <article class="card card--hover card-pad step">
+              <span class="step-n">STEP 01</span>
+              <span class="panel-point-ico" style="margin-bottom:4px"><svg class="ic" width="19" height="19" style="stroke-width:2.2"><use href="#i-user-plus"/></svg></span>
+              <h3 class="h-card">Create your free account</h3>
+              <p>Sign up with an email address and confirm it with a four-digit code. No card, no minimum deposit, no waiting for approval.</p>
+            </article>
+          </div>
+          <div class="reveal" style="--reveal-delay:110ms">
+            <article class="card card--hover card-pad step">
+              <span class="step-n">STEP 02</span>
+              <span class="panel-point-ico" style="margin-bottom:4px"><svg class="ic" width="19" height="19" style="stroke-width:2.2"><use href="#i-landmark"/></svg></span>
+              <h3 class="h-card">Fund it in your own currency</h3>
+              <p>Deposit in naira, cedis, shillings, dollars or any of 40+ currencies. You type the amount you're sending and we show the exact rate before you confirm.</p>
+            </article>
+          </div>
+          <div class="reveal" style="--reveal-delay:220ms">
+            <article class="card card--hover card-pad step">
+              <span class="step-n">STEP 03</span>
+              <span class="panel-point-ico" style="margin-bottom:4px"><svg class="ic" width="19" height="19" style="stroke-width:2.2"><use href="#i-wallet"/></svg></span>
+              <h3 class="h-card">Trade, copy or automate</h3>
+              <p>Place market and limit orders, follow a top trader, or hand a slice of your balance to a bot. Withdraw whenever you want.</p>
+            </article>
+          </div>
+        </div>
+        <div class="reveal" style="--reveal-delay:200ms">
+          <div class="btn-row" style="justify-content:center;margin-top:34px">
+            <a class="btn btn--primary btn--lg" href="https://tetra-trades.vercel.app/">Create free account <svg class="ic" width="17" height="17"><use href="#i-arrow-right"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section class="section" id="features">
+      <div class="shell">
+        <div class="reveal">
+          <div class="section-head">
+            <span class="eyebrow">Why TetraTrades</span>
+            <h2 class="h-section">Everything a serious retail trader asks for.</h2>
+            <p class="lede">Not a wrapper around someone else's exchange — a complete platform with its own markets, automation, funding and risk tools.</p>
+          </div>
+        </div>
+        <div class="feat-grid">
+          <div class="reveal"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-radio"/></svg></span><h3 class="h-card">Live market data</h3><p>Prices, charts and 24-hour moves pulled from CoinGecko and refreshed automatically — no stale quotes while you decide.</p></article></div>
+          <div class="reveal" style="--reveal-delay:90ms"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-earth"/></svg></span><h3 class="h-card">Deposit in your currency</h3><p>Type the amount you're actually sending in NGN, GHS, KES, USD or 40+ others. We convert it at the live rate and never guess.</p></article></div>
+          <div class="reveal" style="--reveal-delay:180ms"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-users"/></svg></span><h3 class="h-card">Copy trading leaderboard</h3><p>Ranked traders with real ROI, win rate and copier counts. Mirror a strategy with one click and keep control of your allocation.</p></article></div>
+          <div class="reveal"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-bot"/></svg></span><h3 class="h-card">Automated strategy bots</h3><p>Scalping, grid and trend bots running 24/7 on the allocation you choose. Pause or close them whenever you like.</p></article></div>
+          <div class="reveal" style="--reveal-delay:90ms"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-gauge"/></svg></span><h3 class="h-card">Leverage with guardrails</h3><p>Set your multiple and see entry price, liquidation level, take-profit and stop-loss before the position is ever opened.</p></article></div>
+          <div class="reveal" style="--reveal-delay:180ms"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-bell"/></svg></span><h3 class="h-card">Price alerts</h3><p>Get notified the moment an asset crosses a level you set — in your own currency, so the number means something.</p></article></div>
+          <div class="reveal"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-target"/></svg></span><h3 class="h-card">Goals and targets</h3><p>Set a savings or profit target and watch a progress bar track you toward it, with milestones you can adjust as you go.</p></article></div>
+          <div class="reveal" style="--reveal-delay:90ms"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-lock"/></svg></span><h3 class="h-card">Secured by default</h3><p>Encrypted credentials, email verification on sign-up and a demo workspace so you can learn the platform without risking a cent.</p></article></div>
+          <div class="reveal" style="--reveal-delay:180ms"><article class="card card--hover card-pad feat"><span class="feat-ico"><svg class="ic" width="20" height="20" style="stroke-width:2.2"><use href="#i-sparkles"/></svg></span><h3 class="h-card">Built for every screen</h3><p>The same full trading experience on desktop, tablet and phone, in light or dark theme, in the language you prefer.</p></article></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PLANS ================= -->
+    <section class="section" id="plans">
+      <div class="shell">
+        <div class="reveal">
+          <div class="section-head section-head--center">
+            <span class="eyebrow">Plans</span>
+            <h2 class="h-section">Pricing that grows with your volume.</h2>
+            <p class="lede">Start on the free tier with full market access. Upgrade when you need more automation slots, higher leverage or larger positions — cancel any time.</p>
+          </div>
+        </div>
+        <div class="plans">
+          <div class="reveal">
+            <article class="card card-pad plan">
+              <span class="plan-name">Starter</span>
+              <span class="plan-price"><strong>Free</strong><span>forever</span></span>
+              <p style="font-size:14.2px;color:var(--muted);line-height:1.55;margin-top:-6px">Everything you need to place your first trade.</p>
+              <ul class="plan-list">
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Live markets &amp; charts</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Market and limit orders</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Price alerts</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Deposit in your currency</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Copy trading (1 slot)</li>
+                <li class="off"><svg class="ic" width="16" height="16" style="stroke-width:2.4"><use href="#i-minus"/></svg> Trading bots</li>
+                <li class="off"><svg class="ic" width="16" height="16" style="stroke-width:2.4"><use href="#i-minus"/></svg> Leveraged positions</li>
+                <li class="off"><svg class="ic" width="16" height="16" style="stroke-width:2.4"><use href="#i-minus"/></svg> Priority support</li>
+              </ul>
+              <a class="btn btn--ghost" href="https://tetra-trades.vercel.app/" style="width:100%">Start free <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg></a>
+            </article>
+          </div>
+          <div class="reveal" style="--reveal-delay:110ms">
+            <article class="card card-pad plan plan--featured">
+              <span class="plan-flag">Most popular</span>
+              <span class="plan-name">Pro</span>
+              <span class="plan-price"><strong>$29</strong><span>per month</span></span>
+              <p style="font-size:14.2px;color:var(--muted);line-height:1.55;margin-top:-6px">For traders running automation and copying strategies.</p>
+              <ul class="plan-list">
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Everything in Starter</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Copy trading (5 slots)</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Trading bots (10 active)</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Leverage up to 10x</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Max position $50,000</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Monthly volume $250,000</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Priority support</li>
+                <li class="off"><svg class="ic" width="16" height="16" style="stroke-width:2.4"><use href="#i-minus"/></svg> Dedicated account manager</li>
+              </ul>
+              <a class="btn btn--primary" href="https://tetra-trades.vercel.app/" style="width:100%">Go Pro <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg></a>
+            </article>
+          </div>
+          <div class="reveal" style="--reveal-delay:220ms">
+            <article class="card card-pad plan">
+              <span class="plan-name">Elite</span>
+              <span class="plan-price"><strong>$99</strong><span>per month</span></span>
+              <p style="font-size:14.2px;color:var(--muted);line-height:1.55;margin-top:-6px">Higher limits and hands-on help for serious volume.</p>
+              <ul class="plan-list">
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Everything in Pro</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Copy trading (20 slots)</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Trading bots (unlimited)</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Leverage up to 25x</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Max position $250,000</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Monthly volume $2,000,000</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Priority support</li>
+                <li><svg class="ic" width="16" height="16" style="stroke-width:2.6"><use href="#i-check"/></svg> Dedicated account manager</li>
+              </ul>
+              <a class="btn btn--ghost" href="https://tetra-trades.vercel.app/" style="width:100%">Go Elite <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg></a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA + DEVICES ================= -->
+    <section class="section section--tight">
+      <div class="shell">
+        <div class="reveal">
+          <div class="cta-band">
+            <h2>Open a free account. Trade in under two minutes.</h2>
+            <p>No card required, no minimum deposit, and a demo workspace if you'd rather look around first. Your balances, trades and withdrawals all display in your own currency.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary btn--lg" href="https://tetra-trades.vercel.app/">Sign up free <svg class="ic" width="17" height="17"><use href="#i-arrow-right"/></svg></a>
+              <a class="btn btn--ghost btn--lg" href="https://tetra-trades.vercel.app/">I already have an account</a>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;margin-top:26px;font-size:13.5px;font-weight:600;opacity:.92">
+              <span style="display:inline-flex;align-items:center;gap:7px"><svg class="ic" width="15" height="15"><use href="#i-shield-check"/></svg> Email-verified sign-up</span>
+              <span style="display:inline-flex;align-items:center;gap:7px"><svg class="ic" width="15" height="15"><use href="#i-sparkles"/></svg> Free Starter plan forever</span>
+              <span style="display:inline-flex;align-items:center;gap:7px"><svg class="ic" width="15" height="15"><use href="#i-globe"/></svg> 40+ funding currencies</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="--reveal-delay:120ms">
+          <div class="download-grid" style="margin-top:clamp(48px,6vw,80px)">
+            <div>
+              <span class="eyebrow">Any device</span>
+              <h2 class="h-section" style="font-size:clamp(26px,3.4vw,40px)">The full platform, in your browser.</h2>
+              <p class="lede">TetraTrades is a responsive web app — the same markets, bots, copy trading and funding flows on a phone, tablet or desktop, with light and dark themes and no download to install.</p>
+              <div class="store-badges">
+                <a class="store-badge" href="https://tetra-trades.vercel.app/">
+                  <svg class="ic" width="18" height="18"><use href="#i-globe"/></svg>
+                  <span><small>Open in any browser</small>Launch the web app</span>
+                </a>
+              </div>
+            </div>
+            <div style="max-width:420px;width:100%">
+              <div class="mock">
+                <div class="mock-bar" aria-hidden="true"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-title">TetraTrades — Portfolio</span></div>
+                <div class="mock-body">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+                    <div>
+                      <span style="font-size:11.5px;color:var(--faint);font-weight:650;text-transform:uppercase;letter-spacing:.06em">Portfolio value</span>
+                      <strong class="num" style="display:block;font-size:28px;font-weight:800;letter-spacing:-.035em;margin-top:2px">$24,812.40</strong>
+                      <span class="up num nowrap" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700"><svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> +$1,284.19 (5.44%) today</span>
+                    </div>
+                    <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Live</span>
+                  </div>
+                  <svg class="mock-chart" viewBox="0 0 320 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="area" d="M0.0,94.0 C3.1,93.2 12.5,89.7 18.8,89.4 C25.1,89.2 31.4,93.5 37.6,92.5 C43.9,91.5 50.2,84.4 56.5,83.4 C62.7,82.4 69.0,87.7 75.3,86.4 C81.6,85.1 87.8,77.1 94.1,75.8 C100.4,74.5 106.7,80.3 112.9,78.8 C119.2,77.3 125.5,68.2 131.8,66.7 C138.0,65.2 144.3,71.2 150.6,69.7 C156.9,68.2 163.1,58.9 169.4,57.6 C175.7,56.3 182.0,63.7 188.2,62.1 C194.5,60.6 200.8,52.0 207.1,48.5 C213.3,44.9 219.6,41.4 225.9,40.9 C232.2,40.4 238.4,47.5 244.7,45.4 C251.0,43.4 257.3,30.8 263.5,28.8 C269.8,26.7 276.1,35.3 282.4,33.3 C288.6,31.3 294.9,21.2 301.2,16.6 C307.5,12.1 316.9,7.8 320.0,6.0 L320,100 L0,100 Z" fill="var(--blue)"></path>
+                    <path class="line" d="M0.0,94.0 C3.1,93.2 12.5,89.7 18.8,89.4 C25.1,89.2 31.4,93.5 37.6,92.5 C43.9,91.5 50.2,84.4 56.5,83.4 C62.7,82.4 69.0,87.7 75.3,86.4 C81.6,85.1 87.8,77.1 94.1,75.8 C100.4,74.5 106.7,80.3 112.9,78.8 C119.2,77.3 125.5,68.2 131.8,66.7 C138.0,65.2 144.3,71.2 150.6,69.7 C156.9,68.2 163.1,58.9 169.4,57.6 C175.7,56.3 182.0,63.7 188.2,62.1 C194.5,60.6 200.8,52.0 207.1,48.5 C213.3,44.9 219.6,41.4 225.9,40.9 C232.2,40.4 238.4,47.5 244.7,45.4 C251.0,43.4 257.3,30.8 263.5,28.8 C269.8,26.7 276.1,35.3 282.4,33.3 C288.6,31.3 294.9,21.2 301.2,16.6 C307.5,12.1 316.9,7.8 320.0,6.0"></path>
+                  </svg>
+                  <div class="mock-metric-grid">
+                    <div class="mock-metric"><span>Open P&amp;L</span><strong class="up num">+$842.10</strong></div>
+                    <div class="mock-metric"><span>Cash</span><strong class="num">$9,410.00</strong></div>
+                    <div class="mock-metric"><span>Positions</span><strong class="num">7</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#top" class="brand" aria-label="TetraTrades — home">
+            <span class="brand-tile" aria-hidden="true"><svg class="ic" width="17" height="17" style="stroke-width:1.9"><use href="#i-tetra"/></svg></span>
+            <span class="brand-name">Tetra<span>Trades</span></span>
+          </a>
+          <p>A modern crypto trading platform: live markets, copy trading, automated bots and funding in your own currency.</p>
+          <div style="display:flex;gap:8px;margin-top:18px">
+            <a class="icon-round" href="#" aria-label="X (Twitter)" title="X (Twitter)"><svg class="ic-fill" width="16" height="16"><use href="#s-x"/></svg></a>
+            <a class="icon-round" href="#" aria-label="Telegram" title="Telegram"><svg class="ic-fill" width="16" height="16"><use href="#s-telegram"/></svg></a>
+            <a class="icon-round" href="#" aria-label="Discord" title="Discord"><svg class="ic-fill" width="16" height="16"><use href="#s-discord"/></svg></a>
+            <a class="icon-round" href="#" aria-label="YouTube" title="YouTube"><svg class="ic-fill" width="16" height="16"><use href="#s-youtube"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <a href="#platform">Spot trading</a><a href="#platform">Margin &amp; leverage</a><a href="#platform">Copy trading</a><a href="#platform">Trading bots</a><a href="#features">Price alerts</a><a href="#markets">Markets</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get started</h4>
+          <a href="https://tetra-trades.vercel.app/">Create an account</a><a href="https://tetra-trades.vercel.app/">Log in</a><a href="https://tetra-trades.vercel.app/">Open the web app</a><a href="#how">How it works</a><a href="#plans">Plans &amp; pricing</a><a href="https://tetra-trades.vercel.app/">Demo account</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#top">About TetraTrades</a><a href="#features">Features</a><a href="#features">Security</a><a href="#features">Supported currencies</a><a href="#markets">Status</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="https://tetra-trades.vercel.app/">Help centre</a><a href="https://tetra-trades.vercel.app/">Live chat</a><a href="https://tetra-trades.vercel.app/">Contact us</a><a href="#plans">Fees</a><a href="https://tetra-trades.vercel.app/">API docs</a>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <svg class="ic" width="15" height="15" style="color:var(--amber)"><use href="#i-triangle-alert"/></svg>
+        <span>Trading cryptocurrencies involves substantial risk and can result in the loss of your invested capital. Nothing on this site is financial advice. Leverage magnifies both gains and losses. TetraTrades is not available in every jurisdiction, and features shown may be limited by your plan.</span>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 TetraTrades. Built for curious traders.</span>
+        <ul>
+          <li><a href="https://tetra-trades.vercel.app/">Terms</a></li>
+          <li><a href="https://tetra-trades.vercel.app/">Privacy</a></li>
+          <li><a href="https://tetra-trades.vercel.app/">Cookies</a></li>
+          <li><a href="https://tetra-trades.vercel.app/">Risk disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

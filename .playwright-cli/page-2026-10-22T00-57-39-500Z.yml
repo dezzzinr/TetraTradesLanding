@@ -1,0 +1,505 @@
+- generic [active] [ref=e1]:
+  - checkbox
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "TetraTrades — home" [ref=e4] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=e8]: TetraTrades
+      - navigation "Primary" [ref=e9]:
+        - link "Markets" [ref=e10] [cursor=pointer]:
+          - /url: "#markets"
+        - link "Platform" [ref=e11] [cursor=pointer]:
+          - /url: "#platform"
+        - link "How it works" [ref=e12] [cursor=pointer]:
+          - /url: "#how"
+        - link "Features" [ref=e13] [cursor=pointer]:
+          - /url: "#features"
+        - link "Plans" [ref=e14] [cursor=pointer]:
+          - /url: "#plans"
+      - generic [ref=e15]:
+        - button "Switch theme" [ref=e16] [cursor=pointer]
+        - link "Log in" [ref=e19] [cursor=pointer]:
+          - /url: https://tetra-trades.vercel.app/
+        - link "Sign up" [ref=e20] [cursor=pointer]:
+          - /url: https://tetra-trades.vercel.app/
+  - main [ref=e23]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]: The all-in-one trading platform
+        - heading [level=1] [ref=e32]:
+          - text: One place to
+          - emphasis [ref=e33]: trade
+          - text: ", copy and automate your crypto."
+        - paragraph [ref=e35]: Live market data, one-click copy trading, strategy bots and leveraged positions — with deposits, trades and withdrawals shown in your own currency. Open a free account in under two minutes.
+        - list "What you can do on TetraTrades" [ref=e37]:
+          - listitem [ref=e38]: Deposit
+          - listitem [ref=e41]: Trade
+          - listitem [ref=e44]: Copy
+          - listitem [ref=e47]: Automate
+          - listitem [ref=e50]: Withdraw
+        - generic [ref=e54]:
+          - link "Sign up free" [ref=e55] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "Try the demo account" [ref=e58] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+        - generic [ref=e62]:
+          - generic [ref=e63]:
+            - strong [ref=e64]: 120k+
+            - generic [ref=e65]: Registered traders
+          - generic [ref=e66]:
+            - strong [ref=e67]: $2.4B
+            - generic [ref=e68]: Volume traded
+          - generic [ref=e69]:
+            - strong [ref=e70]: 40+
+            - generic [ref=e71]: Currencies supported
+          - generic [ref=e72]:
+            - strong [ref=e73]: 24/7
+            - generic [ref=e74]: Live support
+      - generic [ref=e75]:
+        - generic [ref=e77]:
+          - generic [ref=e82]: TetraTrades — Portfolio
+          - generic [ref=e83]:
+            - generic [ref=e84]:
+              - generic [ref=e85]:
+                - text: Portfolio value
+                - strong [ref=e86]: $24,812.40
+                - generic [ref=e87]: +$1,284.19 (5.44%) today
+              - generic [ref=e90]: Live
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - generic [ref=e98]: Open P&L
+                - strong [ref=e99]: +$842.10
+              - generic [ref=e100]:
+                - generic [ref=e101]: Cash
+                - strong [ref=e102]: $9,410.00
+              - generic [ref=e103]:
+                - generic [ref=e104]: Positions
+                - strong [ref=e105]: "7"
+            - generic [ref=e106]:
+              - generic [ref=e107]:
+                - generic [ref=e108]: B
+                - generic [ref=e109]:
+                  - strong [ref=e110]: BTC
+                  - generic [ref=e111]: Bitcoin · 0.18402
+              - generic [ref=e112]:
+                - text: $15,172.60
+                - generic [ref=e113]: +2.41%
+            - generic [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: E
+                - generic [ref=e117]:
+                  - strong [ref=e118]: ETH
+                  - generic [ref=e119]: Ethereum · 3.4021
+              - generic [ref=e120]:
+                - text: $8,271.94
+                - generic [ref=e121]: "-0.86%"
+        - generic [ref=e123]:
+          - generic [ref=e124]: BTC
+          - generic [ref=e127]: $82,443 · +2.4%
+        - generic [ref=e129]:
+          - generic [ref=e130]: Bot P&L
+          - generic [ref=e133]: +$412.80 · Scalper
+    - generic [ref=e135]:
+      - generic [ref=e136]:
+        - tablist "Market views" [ref=e137]:
+          - tab "Hot coins" [selected] [ref=e138] [cursor=pointer]
+          - tab "Gainers" [ref=e139] [cursor=pointer]
+          - tab "Losers" [ref=e140] [cursor=pointer]
+        - generic [ref=e141]:
+          - generic [ref=e142]: Live prices · 12:57:39 AM
+          - button "Refresh prices" [ref=e145] [cursor=pointer]
+      - tabpanel "Hot coins" [ref=e148]:
+        - article [ref=e149]:
+          - generic [ref=e150]:
+            - generic [ref=e151]: B
+            - generic [ref=e152]:
+              - generic [ref=e153]: BTC/USDT
+              - generic [ref=e154]: Bitcoin
+          - generic [ref=e155]: $84,210.00
+          - generic [ref=e156]: +1.41%
+        - article [ref=e162]:
+          - generic [ref=e163]:
+            - generic [ref=e164]: E
+            - generic [ref=e165]:
+              - generic [ref=e166]: ETH/USDT
+              - generic [ref=e167]: Ethereum
+          - generic [ref=e168]: $2,474.92
+          - generic [ref=e169]: +0.84%
+        - article [ref=e175]:
+          - generic [ref=e176]:
+            - generic [ref=e177]: S
+            - generic [ref=e178]:
+              - generic [ref=e179]: SOL/USDT
+              - generic [ref=e180]: Solana
+          - generic [ref=e181]: $107.35
+          - generic [ref=e182]: +0.66%
+        - article [ref=e188]:
+          - generic [ref=e189]:
+            - generic [ref=e190]: X
+            - generic [ref=e191]:
+              - generic [ref=e192]: XRP/USDT
+              - generic [ref=e193]: XRP
+          - generic [ref=e194]: $1.36
+          - generic [ref=e195]: +2.02%
+        - article [ref=e201]:
+          - generic [ref=e202]:
+            - generic [ref=e203]: A
+            - generic [ref=e204]:
+              - generic [ref=e205]: ADA/USDT
+              - generic [ref=e206]: Cardano
+          - generic [ref=e207]: $0.2261
+          - generic [ref=e208]: +0.57%
+        - article [ref=e214]:
+          - generic [ref=e215]:
+            - generic [ref=e216]: D
+            - generic [ref=e217]:
+              - generic [ref=e218]: DOGE/USDT
+              - generic [ref=e219]: Dogecoin
+          - generic [ref=e220]: $0.0820
+          - generic [ref=e221]: "-0.10%"
+        - article [ref=e227]:
+          - generic [ref=e228]:
+            - generic [ref=e229]: L
+            - generic [ref=e230]:
+              - generic [ref=e231]: LINK/USDT
+              - generic [ref=e232]: Chainlink
+          - generic [ref=e233]: $12.58
+          - generic [ref=e234]: +1.58%
+        - article [ref=e240]:
+          - generic [ref=e241]:
+            - generic [ref=e242]: A
+            - generic [ref=e243]:
+              - generic [ref=e244]: AVAX/USDT
+              - generic [ref=e245]: Avalanche
+          - generic [ref=e246]: $9.69
+          - generic [ref=e247]: "-0.84%"
+        - article [ref=e253]:
+          - generic [ref=e254]:
+            - generic [ref=e255]: D
+            - generic [ref=e256]:
+              - generic [ref=e257]: DOT/USDT
+              - generic [ref=e258]: Polkadot
+          - generic [ref=e259]: $1.15
+          - generic [ref=e260]: "-0.20%"
+        - article [ref=e266]:
+          - generic [ref=e267]:
+            - generic [ref=e268]: L
+            - generic [ref=e269]:
+              - generic [ref=e270]: LTC/USDT
+              - generic [ref=e271]: Litecoin
+          - generic [ref=e272]: $61.78
+          - generic [ref=e273]: +0.02%
+    - region "TetraTrades by the numbers" [ref=e279]:
+      - generic [ref=e282]:
+        - generic [ref=e283]:
+          - generic [ref=e284]: 200+
+          - generic [ref=e285]: Crypto assets listed
+        - generic [ref=e286]:
+          - generic [ref=e287]: $480M+
+          - generic [ref=e288]: Average daily volume
+        - generic [ref=e289]:
+          - generic [ref=e290]: 99.9%
+          - generic [ref=e291]: Platform uptime
+        - generic [ref=e292]:
+          - generic [ref=e293]: 150+
+          - generic [ref=e294]: Countries served
+    - generic [ref=e296]:
+      - generic [ref=e298]:
+        - generic [ref=e299]: One platform, endless possibilities
+        - heading "Every way to put your capital to work." [level=2] [ref=e302]
+        - paragraph [ref=e303]: Trade it yourself, copy someone who already does, or hand it to a bot. All four live in the same account, sharing one balance and one set of prices.
+      - tablist "Platform features" [ref=e305]:
+        - tab "Copy trading" [selected] [ref=e306] [cursor=pointer]
+        - tab "Trading bots" [ref=e309] [cursor=pointer]
+        - tab "Spot & margin" [ref=e312] [cursor=pointer]
+        - tab "Plans" [ref=e315] [cursor=pointer]
+      - tabpanel "Copy trading" [ref=e318]:
+        - generic [ref=e319]:
+          - heading "Copy the traders who already know what they're doing." [level=3] [ref=e320]
+          - paragraph [ref=e321]: Browse a ranked leaderboard of strategies, inspect their win rate and drawdown, then mirror their trades into your own account with one click.
+          - generic [ref=e322]:
+            - generic [ref=e327]:
+              - strong [ref=e328]: Ranked by real performance
+              - paragraph [ref=e329]: ROI, win rate and copier count, updated as positions close.
+            - generic [ref=e334]:
+              - strong [ref=e335]: You keep the controls
+              - paragraph [ref=e336]: Set your own allocation per trader and stop copying at any moment.
+            - generic [ref=e341]:
+              - strong [ref=e342]: Trades mirror instantly
+              - paragraph [ref=e343]: Entries, exits and adjustments land in your account automatically.
+          - link "Get started free" [ref=e345] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+        - generic [ref=e349]:
+          - generic [ref=e354]: TetraTrades — Copy trading
+          - generic [ref=e355]:
+            - generic [ref=e356]:
+              - strong [ref=e357]: Top traders this month
+              - generic [ref=e358]: 5,766 copiers
+            - generic [ref=e361]:
+              - generic [ref=e362]:
+                - generic [ref=e363]: NQ
+                - generic [ref=e364]:
+                  - strong [ref=e365]: Nova Quant
+                  - generic [ref=e366]: 2,418 copying · 78% win rate
+              - generic [ref=e367]:
+                - generic [ref=e368]: +184.2%
+                - generic [ref=e369]: Copy
+            - generic [ref=e370]:
+              - generic [ref=e371]:
+                - generic [ref=e372]: DM
+                - generic [ref=e373]:
+                  - strong [ref=e374]: Delta Momentum
+                  - generic [ref=e375]: 1,906 copying · 71% win rate
+              - generic [ref=e376]:
+                - generic [ref=e377]: +132.7%
+                - generic [ref=e378]: Copy
+            - generic [ref=e379]:
+              - generic [ref=e380]:
+                - generic [ref=e381]: AS
+                - generic [ref=e382]:
+                  - strong [ref=e383]: Arctic Scalper
+                  - generic [ref=e384]: 1,442 copying · 68% win rate
+              - generic [ref=e385]:
+                - generic [ref=e386]: +96.4%
+                - generic [ref=e387]: Copy
+            - generic [ref=e388]:
+              - generic [ref=e389]: Your copied positions
+              - strong [ref=e390]: +$1,940.22
+    - generic [ref=e394]:
+      - generic [ref=e396]:
+        - generic [ref=e397]: Getting started
+        - heading "From zero to your first trade in minutes." [level=2] [ref=e398]
+        - paragraph [ref=e399]: Three steps, and the first one costs nothing.
+      - generic [ref=e400]:
+        - article [ref=e402]:
+          - generic [ref=e403]: STEP 01
+          - heading "Create your free account" [level=3] [ref=e407]
+          - paragraph [ref=e408]: Sign up with an email address and confirm it with a four-digit code. No card, no minimum deposit, no waiting for approval.
+        - article [ref=e410]:
+          - generic [ref=e411]: STEP 02
+          - heading "Fund it in your own currency" [level=3] [ref=e415]
+          - paragraph [ref=e416]: Deposit in naira, cedis, shillings, dollars or any of 40+ currencies. You type the amount you're sending and we show the exact rate before you confirm.
+        - article [ref=e418]:
+          - generic [ref=e419]: STEP 03
+          - heading "Trade, copy or automate" [level=3] [ref=e423]
+          - paragraph [ref=e424]: Place market and limit orders, follow a top trader, or hand a slice of your balance to a bot. Withdraw whenever you want.
+      - link "Create free account" [ref=e427] [cursor=pointer]:
+        - /url: https://tetra-trades.vercel.app/
+    - generic [ref=e431]:
+      - generic [ref=e433]:
+        - generic [ref=e434]: Why TetraTrades
+        - heading "Everything a serious retail trader asks for." [level=2] [ref=e435]
+        - paragraph [ref=e436]: Not a wrapper around someone else's exchange — a complete platform with its own markets, automation, funding and risk tools.
+      - generic [ref=e437]:
+        - article [ref=e439]:
+          - heading "Live market data" [level=3] [ref=e443]
+          - paragraph [ref=e444]: Prices, charts and 24-hour moves pulled from CoinGecko and refreshed automatically — no stale quotes while you decide.
+        - article [ref=e446]:
+          - heading "Deposit in your currency" [level=3] [ref=e450]
+          - paragraph [ref=e451]: Type the amount you're actually sending in NGN, GHS, KES, USD or 40+ others. We convert it at the live rate and never guess.
+        - article [ref=e453]:
+          - heading "Copy trading leaderboard" [level=3] [ref=e457]
+          - paragraph [ref=e458]: Ranked traders with real ROI, win rate and copier counts. Mirror a strategy with one click and keep control of your allocation.
+        - article [ref=e460]:
+          - heading "Automated strategy bots" [level=3] [ref=e464]
+          - paragraph [ref=e465]: Scalping, grid and trend bots running 24/7 on the allocation you choose. Pause or close them whenever you like.
+        - article [ref=e467]:
+          - heading "Leverage with guardrails" [level=3] [ref=e471]
+          - paragraph [ref=e472]: Set your multiple and see entry price, liquidation level, take-profit and stop-loss before the position is ever opened.
+        - article [ref=e474]:
+          - heading "Price alerts" [level=3] [ref=e478]
+          - paragraph [ref=e479]: Get notified the moment an asset crosses a level you set — in your own currency, so the number means something.
+        - article [ref=e481]:
+          - heading "Goals and targets" [level=3] [ref=e485]
+          - paragraph [ref=e486]: Set a savings or profit target and watch a progress bar track you toward it, with milestones you can adjust as you go.
+        - article [ref=e488]:
+          - heading "Secured by default" [level=3] [ref=e492]
+          - paragraph [ref=e493]: Encrypted credentials, email verification on sign-up and a demo workspace so you can learn the platform without risking a cent.
+        - article [ref=e495]:
+          - heading "Built for every screen" [level=3] [ref=e499]
+          - paragraph [ref=e500]: The same full trading experience on desktop, tablet and phone, in light or dark theme, in the language you prefer.
+    - generic [ref=e502]:
+      - generic [ref=e504]:
+        - generic [ref=e505]: Plans
+        - heading "Pricing that grows with your volume." [level=2] [ref=e506]
+        - paragraph [ref=e507]: Start on the free tier with full market access. Upgrade when you need more automation slots, higher leverage or larger positions — cancel any time.
+      - generic [ref=e508]:
+        - article [ref=e510]:
+          - generic [ref=e511]: Starter
+          - generic [ref=e512]:
+            - strong [ref=e513]: Free
+            - generic [ref=e514]: forever
+          - paragraph [ref=e515]: Everything you need to place your first trade.
+          - list [ref=e516]:
+            - listitem [ref=e517]: Live markets & charts
+            - listitem [ref=e520]: Market and limit orders
+            - listitem [ref=e523]: Price alerts
+            - listitem [ref=e526]: Deposit in your currency
+            - listitem [ref=e529]: Copy trading (1 slot)
+            - listitem [ref=e532]: Trading bots
+            - listitem [ref=e534]: Leveraged positions
+            - listitem [ref=e536]: Priority support
+          - link "Start free" [ref=e538] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+        - article [ref=e542]:
+          - generic [ref=e543]: Most popular
+          - generic [ref=e544]: Pro
+          - generic [ref=e545]:
+            - strong [ref=e546]: $29
+            - generic [ref=e547]: per month
+          - paragraph [ref=e548]: For traders running automation and copying strategies.
+          - list [ref=e549]:
+            - listitem [ref=e550]: Everything in Starter
+            - listitem [ref=e553]: Copy trading (5 slots)
+            - listitem [ref=e556]: Trading bots (10 active)
+            - listitem [ref=e559]: Leverage up to 10x
+            - listitem [ref=e562]: Max position $50,000
+            - listitem [ref=e565]: Monthly volume $250,000
+            - listitem [ref=e568]: Priority support
+            - listitem [ref=e571]: Dedicated account manager
+          - link "Go Pro" [ref=e573] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+        - article [ref=e577]:
+          - generic [ref=e578]: Elite
+          - generic [ref=e579]:
+            - strong [ref=e580]: $99
+            - generic [ref=e581]: per month
+          - paragraph [ref=e582]: Higher limits and hands-on help for serious volume.
+          - list [ref=e583]:
+            - listitem [ref=e584]: Everything in Pro
+            - listitem [ref=e587]: Copy trading (20 slots)
+            - listitem [ref=e590]: Trading bots (unlimited)
+            - listitem [ref=e593]: Leverage up to 25x
+            - listitem [ref=e596]: Max position $250,000
+            - listitem [ref=e599]: Monthly volume $2,000,000
+            - listitem [ref=e602]: Priority support
+            - listitem [ref=e605]: Dedicated account manager
+          - link "Go Elite" [ref=e608] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+    - generic [ref=e612]:
+      - generic [ref=e614]:
+        - heading "Open a free account. Trade in under two minutes." [level=2] [ref=e615]
+        - paragraph [ref=e616]: No card required, no minimum deposit, and a demo workspace if you'd rather look around first. Your balances, trades and withdrawals all display in your own currency.
+        - generic [ref=e617]:
+          - link "Sign up free" [ref=e618] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "I already have an account" [ref=e621] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+        - generic [ref=e622]:
+          - generic [ref=e623]: Email-verified sign-up
+          - generic [ref=e626]: Free Starter plan forever
+          - generic [ref=e629]: 40+ funding currencies
+      - generic [ref=e633]:
+        - generic [ref=e634]:
+          - generic [ref=e635]: Any device
+          - heading "The full platform, in your browser." [level=2] [ref=e636]
+          - paragraph [ref=e637]: TetraTrades is a responsive web app — the same markets, bots, copy trading and funding flows on a phone, tablet or desktop, with light and dark themes and no download to install.
+          - link "Open in any browser Launch the web app" [ref=e639] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+            - generic [ref=e642]:
+              - generic [ref=e643]: Open in any browser
+              - text: Launch the web app
+        - generic [ref=e645]:
+          - generic [ref=e650]: TetraTrades — Portfolio
+          - generic [ref=e651]:
+            - generic [ref=e652]:
+              - generic [ref=e653]:
+                - text: Portfolio value
+                - strong [ref=e654]: $24,812.40
+                - generic [ref=e655]: +$1,284.19 (5.44%) today
+              - generic [ref=e658]: Live
+            - generic [ref=e664]:
+              - generic [ref=e665]:
+                - generic [ref=e666]: Open P&L
+                - strong [ref=e667]: +$842.10
+              - generic [ref=e668]:
+                - generic [ref=e669]: Cash
+                - strong [ref=e670]: $9,410.00
+              - generic [ref=e671]:
+                - generic [ref=e672]: Positions
+                - strong [ref=e673]: "7"
+  - contentinfo [ref=e674]:
+    - generic [ref=e675]:
+      - generic [ref=e676]:
+        - generic [ref=e677]:
+          - link "TetraTrades — home" [ref=e678] [cursor=pointer]:
+            - /url: "#top"
+            - generic [ref=e682]: TetraTrades
+          - paragraph [ref=e683]: "A modern crypto trading platform: live markets, copy trading, automated bots and funding in your own currency."
+          - generic [ref=e684]:
+            - link "X (Twitter)" [ref=e685] [cursor=pointer]:
+              - /url: "#"
+            - link "Telegram" [ref=e688] [cursor=pointer]:
+              - /url: "#"
+            - link "Discord" [ref=e691] [cursor=pointer]:
+              - /url: "#"
+            - link "YouTube" [ref=e694] [cursor=pointer]:
+              - /url: "#"
+        - generic [ref=e697]:
+          - heading "Products" [level=4] [ref=e698]
+          - link "Spot trading" [ref=e699] [cursor=pointer]:
+            - /url: "#platform"
+          - link "Margin & leverage" [ref=e700] [cursor=pointer]:
+            - /url: "#platform"
+          - link "Copy trading" [ref=e701] [cursor=pointer]:
+            - /url: "#platform"
+          - link "Trading bots" [ref=e702] [cursor=pointer]:
+            - /url: "#platform"
+          - link "Price alerts" [ref=e703] [cursor=pointer]:
+            - /url: "#features"
+          - link "Markets" [ref=e704] [cursor=pointer]:
+            - /url: "#markets"
+        - generic [ref=e705]:
+          - heading "Get started" [level=4] [ref=e706]
+          - link "Create an account" [ref=e707] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "Log in" [ref=e708] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "Open the web app" [ref=e709] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "How it works" [ref=e710] [cursor=pointer]:
+            - /url: "#how"
+          - link "Plans & pricing" [ref=e711] [cursor=pointer]:
+            - /url: "#plans"
+          - link "Demo account" [ref=e712] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+        - generic [ref=e713]:
+          - heading "Company" [level=4] [ref=e714]
+          - link "About TetraTrades" [ref=e715] [cursor=pointer]:
+            - /url: "#top"
+          - link "Features" [ref=e716] [cursor=pointer]:
+            - /url: "#features"
+          - link "Security" [ref=e717] [cursor=pointer]:
+            - /url: "#features"
+          - link "Supported currencies" [ref=e718] [cursor=pointer]:
+            - /url: "#features"
+          - link "Status" [ref=e719] [cursor=pointer]:
+            - /url: "#markets"
+        - generic [ref=e720]:
+          - heading "Support" [level=4] [ref=e721]
+          - link "Help centre" [ref=e722] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "Live chat" [ref=e723] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "Contact us" [ref=e724] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+          - link "Fees" [ref=e725] [cursor=pointer]:
+            - /url: "#plans"
+          - link "API docs" [ref=e726] [cursor=pointer]:
+            - /url: https://tetra-trades.vercel.app/
+      - generic [ref=e727]: Trading cryptocurrencies involves substantial risk and can result in the loss of your invested capital. Nothing on this site is financial advice. Leverage magnifies both gains and losses. TetraTrades is not available in every jurisdiction, and features shown may be limited by your plan.
+      - generic [ref=e731]:
+        - generic [ref=e732]: © 2026 TetraTrades. Built for curious traders.
+        - list [ref=e733]:
+          - listitem [ref=e734]:
+            - link "Terms" [ref=e735] [cursor=pointer]:
+              - /url: https://tetra-trades.vercel.app/
+          - listitem [ref=e736]:
+            - link "Privacy" [ref=e737] [cursor=pointer]:
+              - /url: https://tetra-trades.vercel.app/
+          - listitem [ref=e738]:
+            - link "Cookies" [ref=e739] [cursor=pointer]:
+              - /url: https://tetra-trades.vercel.app/
+          - listitem [ref=e740]:
+            - link "Risk disclosure" [ref=e741] [cursor=pointer]:
+              - /url: https://tetra-trades.vercel.app/
