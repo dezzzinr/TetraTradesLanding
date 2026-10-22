@@ -64,7 +64,7 @@ page is still complete and usable:
 | --- | --- | --- |
 | Theme | toggle + saved choice | follows OS light/dark preference (CSS media query) |
 | Product tabs | switch panels | all four panels render stacked, nothing hidden |
-| Live prices | CoinGecko quotes, 60s refresh, sample fallback | baked-in sample quotes in the HTML |
+| Live prices | whole page revalues from CoinGecko, 60s refresh, cache + sample fallback | baked-in quotes and figures in the HTML |
 | Mobile menu | opens/closes, Escape, scroll lock | opens/closes (hidden checkbox + CSS) |
 | Scroll reveals | fade-up on scroll | content simply visible |
 | Stat counters | count up on scroll | final values shown |
@@ -74,7 +74,7 @@ page is still complete and usable:
 | What | Where |
 | --- | --- |
 | Headline, verbs, proof stats, hero mock | `index.html`, hero section |
-| Coin cards (sample prices/sparklines) | `index.html` `#coin-rail`; live data + samples in `script.js` (`COINS`, `SAMPLE`) |
+| Coin cards, live hooks, global strip | `index.html` `#coin-rail` + `.global-strip` + `data-*` hooks; live fetch + samples in `script.js` (`COINS`, `SAMPLE`) |
 | Stats band | `index.html`, `data-count` attributes drive the animation |
 | Platform tabs & mock panels | `index.html`, the four `.showcase-panel` blocks |
 | Steps, features, plans, CTA, footer | `index.html`, matching sections |
@@ -87,9 +87,27 @@ page is still complete and usable:
 - **Zero third-party requests.** Icons are one inline SVG sprite (lucide path data plus
   hand-drawn X/Telegram/Discord/YouTube glyphs and the tetrahedron brand mark), and Inter
   is self-hosted as a variable font — fast, offline-capable and privacy-clean.
-- **Live prices** come from CoinGecko's keyless public API in the browser. If it is
-  unreachable the ticker keeps clearly-labelled sample figures and the status pill says
-  `Sample prices — live feed unavailable`.
+- **Live data everywhere.** CoinGecko's keyless public API is fetched in the browser
+  (`/simple/price` for quotes, `/global` for market stats) and revalues the whole page,
+  not just the ticker:
+  - ticker coin cards — price + 24h change (`data-live-price` / `data-live-change`),
+  - hero BTC badge and the trade-panel header quote,
+  - hero portfolio mock — each holding row is `qty × live price`
+    (`data-holding-value` with `data-qty` / `data-cost`), the total adds the cash balance
+    (`data-portfolio-total` + `data-cash`), "today" is the holdings-weighted 24h move
+    (`data-portfolio-today`) and open P&L is measured against the fixed cost basis
+    (`data-portfolio-pnl`),
+  - the trade panel's position P&L and ROE against a fixed entry
+    (`data-position-pnl` / `data-position-roe` with `data-entry` / `data-qty` / `data-margin`),
+  - the global stats strip above the ticker — total market cap, 24h volume, BTC
+    dominance and live asset count (`data-global="mcap|vol|btc|count"`).
+  Quotes refresh every 60s and on tab focus. Successful responses are cached in
+  `sessionStorage` for 15 minutes, so a rate-limited or offline reload still shows the
+  session's last live numbers; only with no cache at all does the page fall back to the
+  clearly-labelled sample figures (`Sample prices — live feed unavailable`). Every value
+  is also baked into the HTML, so the page is correct with JavaScript disabled or the
+  API unreachable. Change a cost basis or cash balance by editing the `data-*`
+  attributes in `index.html` — no script changes needed.
 - **Accessibility:** semantic landmarks, tablist/tabpanel roles on both tab groups,
   labelled icon buttons, visible focus rings, and full `prefers-reduced-motion` support.
 

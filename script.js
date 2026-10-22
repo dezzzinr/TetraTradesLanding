@@ -189,6 +189,27 @@
   var refreshBtn = doc.getElementById("ticker-refresh");
   var sortButtons = Array.prototype.slice.call(doc.querySelectorAll("[data-sort]"));
 
+  var CACHE_MS = 15 * 60 * 1000;
+
+  function cacheSet(key, value) {
+    try {
+      window.sessionStorage.setItem(key, JSON.stringify({ ts: Date.now(), value: value }));
+    } catch (e) { /* storage unavailable */ }
+  }
+
+  function cacheGet(key) {
+    try {
+      var raw = window.sessionStorage.getItem(key);
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed.ts !== "number") return null;
+      if (Date.now() - parsed.ts > CACHE_MS) return null;
+      return parsed;
+    } catch (e) {
+      return null;
+    }
+  }
+
   var markets = [];
   var state = "loading";
   var updatedAt = null;
@@ -336,9 +357,18 @@
         markets = next;
         state = "live";
         updatedAt = Date.now();
+        applyLive(next);
+        cacheSet("tt_markets", next);
       })
       .catch(function () {
-        if (state !== "live") {
+        var hit = cacheGet("tt_markets");
+        if (hit && Array.isArray(hit.value) && hit.value.length) {
+          // rate-limited or offline, but we have quotes from this session
+          markets = hit.value;
+          state = "live";
+          updatedAt = hit.ts;
+          applyLive(markets);
+        } else if (state !== "live") {
           markets = SAMPLE;
           state = "sample";
           updatedAt = null;
@@ -378,9 +408,155 @@
     state = "loading";
     renderStatus();
     fetchLive();
-    window.setInterval(fetchLive, REFRESH_MS);
+    fetchGlobal();
+    window.setInterval(function () {
+      fetchLive();
+      fetchGlobal();
+    }, REFRESH_MS);
     doc.addEventListener("visibilitychange", function () {
-      if (doc.visibilityState === "visible") fetchLive();
+      if (doc.visibilityState === "visible") {
+        fetchLive();
+        fetchGlobal();
+      }
     });
+  }
+
+  /* ------------------------------------------------ live data everywhere
+   * The ticker is not the only live surface: the hero badge, the portfolio
+   * mock (holdings valued at live prices, total = cash + holdings, P&L vs a
+   * fixed cost basis) and the trade panel's open position all revalue when a
+   * live quote arrives. Baked-in HTML values remain as the offline fallback.
+   */
+  function money2(value) {
+    return (value < 0 ? "-" : "") + "$" + Math.abs(value).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
+  function compactUsd(value) {
+    return "$" + new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }).format(value);
+  }
+
+  function setDirection(el, up) {
+    el.classList.toggle("up", up);
+    el.classList.toggle("down", !up);
+  }
+
+  function applyLive(list) {
+    var byId = {};
+    list.forEach(function (market) { byId[market.id] = market; });
+
+    doc.querySelectorAll("[data-live-price]").forEach(function (el) {
+      var market = byId[el.getAttribute("data-live-price")];
+      if (market) el.textContent = formatPrice(market.price);
+    });
+
+    doc.querySelectorAll("[data-live-change]").forEach(function (el) {
+      var market = byId[el.getAttribute("data-live-change")];
+      if (!market) return;
+      el.textContent = (market.change24h >= 0 ? "+" : "") + market.change24h.toFixed(2) + "%";
+      setDirection(el, market.change24h >= 0);
+    });
+
+    var total = 0;
+    var previous = 0;
+    var pnl = 0;
+    doc.querySelectorAll("[data-holding-value]").forEach(function (el) {
+      var market = byId[el.getAttribute("data-holding-value")];
+      if (!market) return;
+      var qty = parseFloat(el.getAttribute("data-qty")) || 0;
+      var cost = parseFloat(el.getAttribute("data-cost")) || 0;
+      var value = qty * market.price;
+      total += value;
+      previous += (qty * market.price) / (1 + market.change24h / 100);
+      if (cost) pnl += qty * (market.price - cost);
+      el.textContent = money2(value);
+    });
+
+    var totalEl = doc.querySelector("[data-portfolio-total]");
+    var cash = totalEl ? parseFloat(totalEl.getAttribute("data-cash")) || 0 : 0;
+    if (totalEl && total > 0) totalEl.textContent = money2(cash + total);
+
+    var todayEl = doc.querySelector("[data-portfolio-today]");
+    if (todayEl && previous > 0) {
+      var delta = total - previous;
+      var pct = (delta / previous) * 100;
+      todayEl.textContent =
+        (delta >= 0 ? "+" : "-") + money2(Math.abs(delta)).replace("-", "") +
+        " (" + (delta >= 0 ? "+" : "") + pct.toFixed(2) + "%) today";
+      setDirection(todayEl.parentElement, delta >= 0);
+    }
+
+    var pnlEl = doc.querySelector("[data-portfolio-pnl]");
+    if (pnlEl && total > 0) {
+      pnlEl.textContent = (pnl >= 0 ? "+" : "-") + "$" + Math.abs(pnl).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      setDirection(pnlEl, pnl >= 0);
+    }
+
+    doc.querySelectorAll("[data-position-pnl]").forEach(function (el) {
+      var market = byId[el.getAttribute("data-position-pnl")];
+      if (!market) return;
+      var entry = parseFloat(el.getAttribute("data-entry")) || 0;
+      var qty = parseFloat(el.getAttribute("data-qty")) || 0;
+      var gain = (market.price - entry) * qty;
+      el.textContent = (gain >= 0 ? "+" : "-") + "$" + Math.abs(gain).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      setDirection(el, gain >= 0);
+      setDirection(el.parentElement, gain >= 0);
+    });
+
+    doc.querySelectorAll("[data-position-roe]").forEach(function (el) {
+      var market = byId[el.getAttribute("data-position-roe")];
+      if (!market) return;
+      var entry = parseFloat(el.getAttribute("data-entry")) || 0;
+      var qty = parseFloat(el.getAttribute("data-qty")) || 0;
+      var margin = parseFloat(el.getAttribute("data-margin")) || 1;
+      var roe = (((market.price - entry) * qty) / margin) * 100;
+      el.textContent = (roe >= 0 ? "+" : "") + roe.toFixed(1) + "%";
+      setDirection(el, roe >= 0);
+    });
+  }
+
+  function applyGlobal(texts) {
+    Object.keys(texts).forEach(function (key) {
+      doc.querySelectorAll('[data-global="' + key + '"]').forEach(function (el) {
+        el.textContent = texts[key];
+      });
+    });
+  }
+
+  /* CoinGecko /global: total market cap, 24h volume, BTC dominance, asset count */
+  function fetchGlobal() {
+    fetch("https://api.coingecko.com/api/v3/global", { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("bad status");
+        return response.json();
+      })
+      .then(function (json) {
+        var data = json && json.data;
+        if (!data) return;
+        var texts = {};
+        if (data.total_market_cap && data.total_market_cap.usd) texts.mcap = compactUsd(data.total_market_cap.usd);
+        if (data.total_volume && data.total_volume.usd) texts.vol = compactUsd(data.total_volume.usd);
+        if (data.market_cap_percentage && typeof data.market_cap_percentage.btc === "number") {
+          texts.btc = data.market_cap_percentage.btc.toFixed(1) + "%";
+        }
+        if (typeof data.active_cryptocurrencies === "number") {
+          texts.count = data.active_cryptocurrencies.toLocaleString("en-US");
+        }
+        applyGlobal(texts);
+        cacheSet("tt_global", texts);
+      })
+      .catch(function () {
+        var hit = cacheGet("tt_global");
+        if (hit && hit.value) applyGlobal(hit.value);
+        /* otherwise keep the baked-in figures */
+      });
   }
 })();

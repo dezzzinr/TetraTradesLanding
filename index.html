@@ -194,9 +194,9 @@
                 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
                   <div>
                     <span style="font-size:11.5px;color:var(--faint);font-weight:650;text-transform:uppercase;letter-spacing:.06em">Portfolio value</span>
-                    <strong class="num" style="display:block;font-size:28px;font-weight:800;letter-spacing:-.035em;margin-top:2px">$24,812.40</strong>
+                    <strong class="num" style="display:block;font-size:28px;font-weight:800;letter-spacing:-.035em;margin-top:2px" data-portfolio-total data-cash="9410">$24,812.40</strong>
                     <span class="up num nowrap" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700">
-                      <svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> +$1,284.19 (5.44%) today
+                      <svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> <span data-portfolio-today>+$1,284.19 (5.44%) today</span>
                     </span>
                   </div>
                   <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Live</span>
@@ -208,7 +208,7 @@
                 </svg>
 
                 <div class="mock-metric-grid">
-                  <div class="mock-metric"><span>Open P&amp;L</span><strong class="up num">+$842.10</strong></div>
+                  <div class="mock-metric"><span>Open P&amp;L</span><strong class="up num" data-portfolio-pnl>+$842.10</strong></div>
                   <div class="mock-metric"><span>Cash</span><strong class="num">$9,410.00</strong></div>
                   <div class="mock-metric"><span>Positions</span><strong class="num">7</strong></div>
                 </div>
@@ -218,14 +218,14 @@
                     <span class="mock-avatar">B</span>
                     <span><strong>BTC</strong><small>Bitcoin · 0.18402</small></span>
                   </span>
-                  <span class="mock-num num">$15,172.60<small class="up">+2.41%</small></span>
+                  <span class="mock-num num"><span data-holding-value="bitcoin" data-qty="0.18402" data-cost="66421.50">$15,172.60</span><small data-live-change="bitcoin" class="up">+2.41%</small></span>
                 </div>
                 <div class="mock-row">
                   <span class="mock-id">
                     <span class="mock-avatar">E</span>
                     <span><strong>ETH</strong><small>Ethereum · 3.4021</small></span>
                   </span>
-                  <span class="mock-num num">$8,271.94<small class="down">-0.86%</small></span>
+                  <span class="mock-num num"><span data-holding-value="ethereum" data-qty="3.4021" data-cost="1980.00">$8,271.94</span><small data-live-change="ethereum" class="down">-0.86%</small></span>
                 </div>
               </div>
             </div>
@@ -236,7 +236,7 @@
               <span style="display:flex;align-items:center;gap:6px">
                 <svg class="ic" width="14" height="14" style="color:var(--green)"><use href="#i-arrow-up-right"/></svg> BTC
               </span>
-              <small class="num" style="color:var(--ink);font-weight:750;font-size:14px">$82,443 · +2.4%</small>
+              <small class="num" style="color:var(--ink);font-weight:750;font-size:14px"><span data-live-price="bitcoin">$82,443</span> · <span data-live-change="bitcoin" class="up">+2.4%</span></small>
             </span>
           </div>
           <div class="pill-badge pill-badge--br">
@@ -268,6 +268,12 @@
               <svg class="ic" width="14" height="14"><use href="#i-refresh-cw"/></svg>
             </button>
           </div>
+        </div>
+        <div class="global-strip" aria-label="Global market statistics">
+          <span><svg class="ic" width="13" height="13"><use href="#i-globe"/></svg> Global market cap <strong class="num" data-global="mcap">$3.42T</strong></span>
+          <span>24h volume <strong class="num" data-global="vol">$128.4B</strong></span>
+          <span>BTC dominance <strong class="num" data-global="btc">58.4%</strong></span>
+          <span>Live assets <strong class="num" data-global="count">17,400+</strong></span>
         </div>
         <div class="rail" id="coin-rail" role="tabpanel" aria-labelledby="tab-hot">
           <article class="coin-card">
@@ -594,7 +600,7 @@
               <div class="mock-body">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
                   <span class="mock-id"><span class="mock-avatar">B</span><span><strong>BTC/USDT</strong><small>Perpetual · 5x leverage</small></span></span>
-                  <span class="mock-num num">$82,443.80</span>
+                  <span class="mock-num num" data-live-price="bitcoin">$82,443.80</span>
                 </div>
                 <svg class="mock-chart" viewBox="0 0 320 100" preserveAspectRatio="none" aria-hidden="true">
                   <path class="area" d="M0.0,94.0 C4.8,92.3 19.4,84.1 29.1,83.6 C38.8,83.2 48.5,93.1 58.2,91.4 C67.9,89.7 77.6,78.0 87.3,73.3 C97.0,68.5 106.7,62.5 116.4,62.9 C126.1,63.4 135.8,77.2 145.5,75.9 C155.2,74.6 164.8,61.2 174.5,55.2 C184.2,49.1 193.9,40.5 203.6,39.6 C213.3,38.8 223.0,52.2 232.7,50.0 C242.4,47.8 252.1,28.9 261.8,26.7 C271.5,24.5 281.2,40.5 290.9,37.1 C300.6,33.6 315.2,11.2 320.0,6.0 L320,100 L0,100 Z" fill="var(--blue)"></path>
@@ -606,7 +612,7 @@
                 </div>
                 <div class="mock-row">
                   <span class="mock-id"><span><strong>Open position</strong><small>Entry $80,120.44 · Liq. $72,108.40</small></span></span>
-                  <span class="mock-num num up">+$2,323.36<small class="up">+14.5%</small></span>
+                  <span class="mock-num num up"><span data-position-pnl="bitcoin" data-entry="80120.44" data-qty="0.16" data-margin="2000">+$2,323.36</span><small class="up" data-position-roe="bitcoin" data-entry="80120.44" data-qty="0.16" data-margin="2000">+14.5%</small></span>
                 </div>
                 <div class="mock-metric-grid">
                   <div class="mock-metric"><span>Margin</span><strong class="num">$2,000.00</strong></div>
@@ -852,8 +858,8 @@
                   <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
                     <div>
                       <span style="font-size:11.5px;color:var(--faint);font-weight:650;text-transform:uppercase;letter-spacing:.06em">Portfolio value</span>
-                      <strong class="num" style="display:block;font-size:28px;font-weight:800;letter-spacing:-.035em;margin-top:2px">$24,812.40</strong>
-                      <span class="up num nowrap" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700"><svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> +$1,284.19 (5.44%) today</span>
+                      <strong class="num" style="display:block;font-size:28px;font-weight:800;letter-spacing:-.035em;margin-top:2px" data-portfolio-total data-cash="9410">$24,812.40</strong>
+                      <span class="up num nowrap" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700"><svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> <span data-portfolio-today>+$1,284.19 (5.44%) today</span></span>
                     </div>
                     <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Live</span>
                   </div>
@@ -862,7 +868,7 @@
                     <path class="line" d="M0.0,94.0 C3.1,93.2 12.5,89.7 18.8,89.4 C25.1,89.2 31.4,93.5 37.6,92.5 C43.9,91.5 50.2,84.4 56.5,83.4 C62.7,82.4 69.0,87.7 75.3,86.4 C81.6,85.1 87.8,77.1 94.1,75.8 C100.4,74.5 106.7,80.3 112.9,78.8 C119.2,77.3 125.5,68.2 131.8,66.7 C138.0,65.2 144.3,71.2 150.6,69.7 C156.9,68.2 163.1,58.9 169.4,57.6 C175.7,56.3 182.0,63.7 188.2,62.1 C194.5,60.6 200.8,52.0 207.1,48.5 C213.3,44.9 219.6,41.4 225.9,40.9 C232.2,40.4 238.4,47.5 244.7,45.4 C251.0,43.4 257.3,30.8 263.5,28.8 C269.8,26.7 276.1,35.3 282.4,33.3 C288.6,31.3 294.9,21.2 301.2,16.6 C307.5,12.1 316.9,7.8 320.0,6.0"></path>
                   </svg>
                   <div class="mock-metric-grid">
-                    <div class="mock-metric"><span>Open P&amp;L</span><strong class="up num">+$842.10</strong></div>
+                    <div class="mock-metric"><span>Open P&amp;L</span><strong class="up num" data-portfolio-pnl>+$842.10</strong></div>
                     <div class="mock-metric"><span>Cash</span><strong class="num">$9,410.00</strong></div>
                     <div class="mock-metric"><span>Positions</span><strong class="num">7</strong></div>
                   </div>
