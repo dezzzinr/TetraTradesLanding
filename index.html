@@ -32,6 +32,8 @@
       document.documentElement.classList.add("js");
     })();
   </script>
+  <script src="config.js" defer></script>
+  <script src="site.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -97,6 +99,7 @@
       <span class="nav-spacer"></span>
 
       <div class="nav-actions">
+        <div class="translate-wrap"><button class="translate-toggle" type="button" aria-expanded="false" aria-controls="translate-panel">🌐 <span>Translate</span></button><div id="translate-panel" class="translate-panel" hidden><strong>Translate this page</strong><p>Machine translation by Google. Content may not be exact.</p><div id="google_translate_element"></div><p class="translate-status" role="status"></p></div></div>
         <button type="button" class="icon-round" id="theme-toggle" aria-label="Switch theme" title="Switch theme">
           <svg class="ic ic-sun" width="18" height="18"><use href="#i-sun"/></svg>
           <svg class="ic ic-moon" width="18" height="18"><use href="#i-moon"/></svg>
@@ -119,6 +122,9 @@
     <a href="#how">How it works</a>
     <a href="#features">Features</a>
     <a href="#plans">Plans</a>
+    <a href="markets.html">Market overview</a>
+    <a href="about.html">About</a>
+    <a href="help.html">Help centre</a>
     <div class="drawer-cta">
       <a class="btn btn--ghost" href="https://tetra-trades.vercel.app/">Log in</a>
       <a class="btn btn--primary" href="https://tetra-trades.vercel.app/">
@@ -199,7 +205,7 @@
                       <svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> <span data-portfolio-today>+$1,284.19 (5.44%) today</span>
                     </span>
                   </div>
-                  <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Live</span>
+                  <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Example</span>
                 </div>
 
                 <svg class="mock-chart" viewBox="0 0 320 100" preserveAspectRatio="none" aria-hidden="true">
@@ -273,13 +279,14 @@
           <span><svg class="ic" width="13" height="13"><use href="#i-globe"/></svg> Global market cap <strong class="num" data-global="mcap">$3.42T</strong></span>
           <span>24h volume <strong class="num" data-global="vol">$128.4B</strong></span>
           <span>BTC dominance <strong class="num" data-global="btc">58.4%</strong></span>
-          <span>Live assets <strong class="num" data-global="count">17,400+</strong></span>
+          <span>Assets <strong class="num" data-global="count">17,400+</strong></span>
+          <span id="global-status">Sample global figures until updated</span>
         </div>
         <div class="rail" id="coin-rail" role="tabpanel" aria-labelledby="tab-hot">
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">B</span>
-              <span><span class="coin-sym">BTC/USDT</span><span class="coin-name">Bitcoin</span></span>
+              <span><span class="coin-sym">BTC/USD</span><span class="coin-name">Bitcoin</span></span>
             </div>
             <div class="coin-price num">$82,443.80</div>
             <div class="coin-meta">
@@ -290,7 +297,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">E</span>
-              <span><span class="coin-sym">ETH/USDT</span><span class="coin-name">Ethereum</span></span>
+              <span><span class="coin-sym">ETH/USD</span><span class="coin-name">Ethereum</span></span>
             </div>
             <div class="coin-price num">$2,431.40</div>
             <div class="coin-meta">
@@ -301,7 +308,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">S</span>
-              <span><span class="coin-sym">SOL/USDT</span><span class="coin-name">Solana</span></span>
+              <span><span class="coin-sym">SOL/USD</span><span class="coin-name">Solana</span></span>
             </div>
             <div class="coin-price num">$105.30</div>
             <div class="coin-meta">
@@ -312,7 +319,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">X</span>
-              <span><span class="coin-sym">XRP/USDT</span><span class="coin-name">XRP</span></span>
+              <span><span class="coin-sym">XRP/USD</span><span class="coin-name">XRP</span></span>
             </div>
             <div class="coin-price num">$2.41</div>
             <div class="coin-meta">
@@ -323,7 +330,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">A</span>
-              <span><span class="coin-sym">ADA/USDT</span><span class="coin-name">Cardano</span></span>
+              <span><span class="coin-sym">ADA/USD</span><span class="coin-name">Cardano</span></span>
             </div>
             <div class="coin-price num">$0.6841</div>
             <div class="coin-meta">
@@ -334,7 +341,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">D</span>
-              <span><span class="coin-sym">DOGE/USDT</span><span class="coin-name">Dogecoin</span></span>
+              <span><span class="coin-sym">DOGE/USD</span><span class="coin-name">Dogecoin</span></span>
             </div>
             <div class="coin-price num">$0.1523</div>
             <div class="coin-meta">
@@ -345,7 +352,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">L</span>
-              <span><span class="coin-sym">LINK/USDT</span><span class="coin-name">Chainlink</span></span>
+              <span><span class="coin-sym">LINK/USD</span><span class="coin-name">Chainlink</span></span>
             </div>
             <div class="coin-price num">$15.89</div>
             <div class="coin-meta">
@@ -356,7 +363,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">A</span>
-              <span><span class="coin-sym">AVAX/USDT</span><span class="coin-name">Avalanche</span></span>
+              <span><span class="coin-sym">AVAX/USD</span><span class="coin-name">Avalanche</span></span>
             </div>
             <div class="coin-price num">$24.61</div>
             <div class="coin-meta">
@@ -367,7 +374,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">D</span>
-              <span><span class="coin-sym">DOT/USDT</span><span class="coin-name">Polkadot</span></span>
+              <span><span class="coin-sym">DOT/USD</span><span class="coin-name">Polkadot</span></span>
             </div>
             <div class="coin-price num">$3.18</div>
             <div class="coin-meta">
@@ -378,7 +385,7 @@
           <article class="coin-card">
             <div class="coin-top">
               <span class="coin-icon">L</span>
-              <span><span class="coin-sym">LTC/USDT</span><span class="coin-name">Litecoin</span></span>
+              <span><span class="coin-sym">LTC/USD</span><span class="coin-name">Litecoin</span></span>
             </div>
             <div class="coin-price num">$92.47</div>
             <div class="coin-meta">
@@ -386,6 +393,14 @@
               <svg class="spark" viewBox="0 0 62 22" aria-hidden="true"><path d="M0.00,17.06 L2.70,18.60 L5.39,19.92 L8.09,18.57 L10.78,17.48 L13.48,18.80 L16.17,20.50 L18.87,19.03 L21.57,16.49 L24.26,18.35 L26.96,17.95 L29.65,14.93 L32.35,12.95 L35.04,12.72 L37.74,10.06 L40.43,10.28 L43.13,7.38 L45.83,5.68 L48.52,4.82 L51.22,4.54 L53.91,3.64 L56.61,5.18 L59.30,3.19 L62.00,1.50" stroke="var(--green)" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
             </div>
           </article>
+        </div>
+        <div class="market-chart-card" aria-labelledby="chart-heading">
+          <div class="market-chart-header"><div><span class="eyebrow">CoinGecko market data</span><h3 id="chart-heading">Price history</h3><p>Seven-day USD price trend · updated with the market feed</p></div>
+            <label for="chart-coin">Asset <select id="chart-coin"><option value="bitcoin">Bitcoin</option><option value="ethereum">Ethereum</option><option value="solana">Solana</option><option value="ripple">XRP</option><option value="cardano">Cardano</option></select></label></div>
+          <div class="market-chart-summary"><strong id="chart-price">—</strong><span id="chart-change"></span></div>
+          <svg class="market-chart-svg" viewBox="0 0 320 100" preserveAspectRatio="none" role="img" aria-label="Seven day price chart"><path id="chart-area" class="market-chart-area" d=""></path><path id="chart-line" class="market-chart-line" d=""></path></svg>
+          <div class="chart-footer"><span>7 days ago</span><span id="chart-status" role="status">Chart requires JavaScript</span><span>Now</span></div>
+          <p class="chart-note">Prices are informational, not executable quotes. Charts may be delayed; trading involves risk.</p>
         </div>
       </div>
     </div>
@@ -861,7 +876,7 @@
                       <strong class="num" style="display:block;font-size:28px;font-weight:800;letter-spacing:-.035em;margin-top:2px" data-portfolio-total data-cash="9410">$24,812.40</strong>
                       <span class="up num nowrap" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700"><svg class="ic" width="13" height="13"><use href="#i-arrow-up-right"/></svg> <span data-portfolio-today>+$1,284.19 (5.44%) today</span></span>
                     </div>
-                    <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Live</span>
+                    <span class="chip chip--brand"><svg class="ic" width="12" height="12"><use href="#i-zap"/></svg> Example</span>
                   </div>
                   <svg class="mock-chart" viewBox="0 0 320 100" preserveAspectRatio="none" aria-hidden="true">
                     <path class="area" d="M0.0,94.0 C3.1,93.2 12.5,89.7 18.8,89.4 C25.1,89.2 31.4,93.5 37.6,92.5 C43.9,91.5 50.2,84.4 56.5,83.4 C62.7,82.4 69.0,87.7 75.3,86.4 C81.6,85.1 87.8,77.1 94.1,75.8 C100.4,74.5 106.7,80.3 112.9,78.8 C119.2,77.3 125.5,68.2 131.8,66.7 C138.0,65.2 144.3,71.2 150.6,69.7 C156.9,68.2 163.1,58.9 169.4,57.6 C175.7,56.3 182.0,63.7 188.2,62.1 C194.5,60.6 200.8,52.0 207.1,48.5 C213.3,44.9 219.6,41.4 225.9,40.9 C232.2,40.4 238.4,47.5 244.7,45.4 C251.0,43.4 257.3,30.8 263.5,28.8 C269.8,26.7 276.1,35.3 282.4,33.3 C288.6,31.3 294.9,21.2 301.2,16.6 C307.5,12.1 316.9,7.8 320.0,6.0 L320,100 L0,100 Z" fill="var(--blue)"></path>
@@ -900,7 +915,7 @@
         </div>
         <div class="footer-col">
           <h4>Products</h4>
-          <a href="#platform">Spot trading</a><a href="#platform">Margin &amp; leverage</a><a href="#platform">Copy trading</a><a href="#platform">Trading bots</a><a href="#features">Price alerts</a><a href="#markets">Markets</a>
+          <a href="#platform">Spot trading</a><a href="#platform">Margin &amp; leverage</a><a href="#platform">Copy trading</a><a href="#platform">Trading bots</a><a href="#features">Price alerts</a><a href="markets.html">Markets</a>
         </div>
         <div class="footer-col">
           <h4>Get started</h4>
@@ -908,11 +923,11 @@
         </div>
         <div class="footer-col">
           <h4>Company</h4>
-          <a href="#top">About TetraTrades</a><a href="#features">Features</a><a href="#features">Security</a><a href="#features">Supported currencies</a><a href="#markets">Status</a>
+          <a href="about.html">About TetraTrades</a><a href="#features">Features</a><a href="#features">Security</a><a href="#features">Supported currencies</a><a href="#markets">Status</a>
         </div>
         <div class="footer-col">
           <h4>Support</h4>
-          <a href="https://tetra-trades.vercel.app/">Help centre</a><a href="https://tetra-trades.vercel.app/">Live chat</a><a href="https://tetra-trades.vercel.app/">Contact us</a><a href="#plans">Fees</a><a href="https://tetra-trades.vercel.app/">API docs</a>
+          <a href="help.html">Help centre</a><a href="help.html#contact" data-chat-link>Live chat</a><a href="help.html#contact">Contact us</a><a href="#plans">Fees</a><a href="https://tetra-trades.vercel.app/">API docs</a>
         </div>
       </div>
 

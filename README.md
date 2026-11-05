@@ -1,119 +1,68 @@
-# TetraTrades — Landing Page (plain HTML + CSS, black & white)
+# TetraTrades landing site
 
-A monochrome, editorial-style marketing site for the **TetraTrades** trading platform.
-No framework, no build step: one HTML file, one stylesheet, one small vanilla JS file,
-a favicon and a self-hosted font. Upload the folder to any web server and it works.
+A static HTML, CSS and vanilla JavaScript site. No build step is required.
 
-Every call-to-action links to the live app: **https://tetra-trades.vercel.app/**
+## Pages
 
-```
-tetratrades-landing-html/
-├── index.html        all markup, inline SVG icon sprite, SEO meta
-├── styles.css        monochrome design system (white/black + black/white themes)
-├── script.js         optional enhancements (theme toggle, tabs, live prices…)
-├── favicon.svg       black tile + white tetrahedron mark
-└── fonts/
-    └── inter-latin.woff2   self-hosted Inter variable font (latin, 100–900)
-```
+- `index.html` — landing page and market ticker
+- `markets.html` — market overview and selectable seven-day price chart
+- `about.html` — platform overview
+- `help.html` — common questions and support
 
-## Deploy
+The account and trading calls to action link to `https://tetra-trades.vercel.app/`.
+The new content is a starting point; review all product claims, prices, links and
+legal disclosures before publishing.
 
-Copy the folder contents to any static host — Nginx, Apache, Netlify, Cloudflare Pages,
-S3, cPanel. Nothing to install, compile or server-render.
+## Preview and deploy
 
-```bash
-sudo cp -r tetratrades-landing-html/* /var/www/tetratrades/
+```sh
+python3 -m http.server 8080
 ```
 
-To repoint the CTAs (all 29 of them are plain `href`s):
+Visit `http://localhost:8080`. Deploy all files, including the `fonts` folder, to
+a static host. The site has not been pushed to GitHub or deployed by this project.
 
-```bash
-sed -i 's|https://tetra-trades.vercel.app/|https://your-app.example.com/|g' index.html
-```
+## Smartsupp
 
-## The black & white system
+In `config.js`, set `smartsuppKey` to the **website chat code/key** from your
+Smartsupp dashboard under Settings → Chat box → Installation. The chat widget
+then loads on each page, and the footer's Live chat link opens it. Leave the key
+empty to keep the widget disabled; the link goes to the support page instead.
+The website key is public client-side configuration: **do not put API secrets,
+passwords or private credentials in this file**. Check your consent and privacy
+requirements before enabling the widget. Smartsupp availability and behavior
+depend on your account settings and the visitor's browser.
 
-Two themes, both strictly monochrome, switched with the nav toggle and remembered in
-`localStorage` (`tetratrades_theme`); without JavaScript the OS preference applies.
+## Translation
 
-| Token | Light | Dark |
-| --- | --- | --- |
-| Background | `#ffffff` | `#000000` |
-| Surface / soft | `#ffffff` / `#f5f5f5` | `#0d0d0d` / `#161616` |
-| Ink (text, primary buttons) | `#0a0a0a` | `#f5f5f5` |
-| Muted / faint | `#5c5c5c` / `#8a8a8a` | `#a3a3a3` / `#7a7a7a` |
-| Lines | `#e6e6e6` / `#cfcfcf` | `#262626` / `#3a3a3a` |
+The Translate control loads Google Translate's third-party website widget on
+request. Google provides the languages and machine translation; availability,
+accuracy, dynamic content, browser restrictions and persistence are controlled
+by Google and are not guaranteed. Translation may send page content and visitor
+data to Google. Test it and provide appropriate privacy/consent notices for your
+jurisdiction. The original English page remains usable if the widget cannot load.
 
-Primary buttons, the active tab, the brand tile and the CTA band are solid ink with
-knocked-out text, and invert automatically with the theme (`color: var(--bg)` on
-`background: var(--blue)`), so a single token pair drives the whole accent system.
-Coin badges, avatars, window chrome, sparkline-adjacent chips and the headline gradient
-are all grayscale too.
+## Market data
 
-**One deliberate exception:** market direction keeps green/red (`--green`, `--red`) for
-24h changes, P&L figures and sparklines, because colour is the fastest way to read
-gain vs loss. To make the page 100% grayscale, set both tokens to `var(--ink)` in the
-`:root` and `[data-theme="dark"]` blocks — nothing else references them.
+The browser requests CoinGecko's public `/coins/markets` and `/global` endpoints.
+Coin images and seven-day sparklines come from the market response. The larger
+chart uses the same seven-day historical series; the price and change are USD,
+not USDT. A refresh occurs every 60 seconds and on tab focus. CoinGecko may rate
+limit or deny requests. A session cache is labeled **cached**, and sample values
+are labeled **sample** when no live or cached data is available; the large chart
+is not drawn from sample data. Global statistics have their own cache and can
+be unavailable or stale independently of the ticker. Do not treat these values
+as executable quotes. Some portfolio and bot illustrations are examples, not
+real user balances or performance history.
 
-## What JavaScript does — and what happens without it
+## Project files
 
-`script.js` is loaded with `defer` and is purely additive. With JavaScript disabled the
-page is still complete and usable:
+- `styles.css` — responsive design, light/dark themes and page styles
+- `script.js` — market data and landing page interactions
+- `site.js` — translation control and optional Smartsupp integration
+- `config.js` — public Smartsupp website key
+- `favicon.svg`, `fonts/` — local visual assets
 
-| Feature | With JS | Without JS |
-| --- | --- | --- |
-| Theme | toggle + saved choice | follows OS light/dark preference (CSS media query) |
-| Product tabs | switch panels | all four panels render stacked, nothing hidden |
-| Live prices | whole page revalues from CoinGecko, 60s refresh, cache + sample fallback | baked-in quotes and figures in the HTML |
-| Mobile menu | opens/closes, Escape, scroll lock | opens/closes (hidden checkbox + CSS) |
-| Scroll reveals | fade-up on scroll | content simply visible |
-| Stat counters | count up on scroll | final values shown |
-
-## Editing content
-
-| What | Where |
-| --- | --- |
-| Headline, verbs, proof stats, hero mock | `index.html`, hero section |
-| Coin cards, live hooks, global strip | `index.html` `#coin-rail` + `.global-strip` + `data-*` hooks; live fetch + samples in `script.js` (`COINS`, `SAMPLE`) |
-| Stats band | `index.html`, `data-count` attributes drive the animation |
-| Platform tabs & mock panels | `index.html`, the four `.showcase-panel` blocks |
-| Steps, features, plans, CTA, footer | `index.html`, matching sections |
-| Colours, radii, shadows, spacing | token block at the top of `styles.css` |
-| Icons | `<symbol>` sprite at the top of `<body>`; use as `<svg class="ic" width="16" height="16"><use href="#i-name"/></svg>` |
-| Brand mark | `#i-tetra` symbol + `favicon.svg` |
-
-## Notes
-
-- **Zero third-party requests.** Icons are one inline SVG sprite (lucide path data plus
-  hand-drawn X/Telegram/Discord/YouTube glyphs and the tetrahedron brand mark), and Inter
-  is self-hosted as a variable font — fast, offline-capable and privacy-clean.
-- **Live data everywhere.** CoinGecko's keyless public API is fetched in the browser
-  (`/simple/price` for quotes, `/global` for market stats) and revalues the whole page,
-  not just the ticker:
-  - ticker coin cards — price + 24h change (`data-live-price` / `data-live-change`),
-  - hero BTC badge and the trade-panel header quote,
-  - hero portfolio mock — each holding row is `qty × live price`
-    (`data-holding-value` with `data-qty` / `data-cost`), the total adds the cash balance
-    (`data-portfolio-total` + `data-cash`), "today" is the holdings-weighted 24h move
-    (`data-portfolio-today`) and open P&L is measured against the fixed cost basis
-    (`data-portfolio-pnl`),
-  - the trade panel's position P&L and ROE against a fixed entry
-    (`data-position-pnl` / `data-position-roe` with `data-entry` / `data-qty` / `data-margin`),
-  - the global stats strip above the ticker — total market cap, 24h volume, BTC
-    dominance and live asset count (`data-global="mcap|vol|btc|count"`).
-  Quotes refresh every 60s and on tab focus. Successful responses are cached in
-  `sessionStorage` for 15 minutes, so a rate-limited or offline reload still shows the
-  session's last live numbers; only with no cache at all does the page fall back to the
-  clearly-labelled sample figures (`Sample prices — live feed unavailable`). Every value
-  is also baked into the HTML, so the page is correct with JavaScript disabled or the
-  API unreachable. Change a cost basis or cash balance by editing the `data-*`
-  attributes in `index.html` — no script changes needed.
-- **Accessibility:** semantic landmarks, tablist/tabpanel roles on both tab groups,
-  labelled icon buttons, visible focus rings, and full `prefers-reduced-motion` support.
-
-## Local preview
-
-```bash
-python3 -m http.server 8080 --directory tetratrades-landing-html
-# then open http://localhost:8080
-```
+External network requests are made to CoinGecko and its image CDN, Google when
+translation is used, and Smartsupp when configured. Ad blockers, network
+restrictions, rate limits and privacy settings can affect those services.

@@ -1385,3 +1385,48 @@ ul { margin: 0; padding: 0; list-style: none; }
   /* keep the topbar on one line on phones — Sign up lives in the drawer menu */
   .nav-actions .btn { display: none; }
 }
+
+/* Shared translation control and informational pages */
+.translate-wrap { position: relative; }
+.translate-toggle { display:flex; align-items:center; gap:5px; padding:8px 10px; border:1px solid var(--line); border-radius:var(--r-pill); background:var(--surface); color:var(--ink); cursor:pointer; font:inherit; font-size:12px; font-weight:650; }
+.translate-panel { position:absolute; right:0; top:calc(100% + 12px); width:min(290px, 85vw); z-index:100; padding:18px; border:1px solid var(--line); border-radius:var(--r-md); background:var(--surface); color:var(--ink); box-shadow:var(--shadow-lg); }
+.translate-panel[hidden] { display:none; }
+.translate-panel strong { font-size:14px; }
+.translate-panel p { color:var(--muted); font-size:12px; line-height:1.5; margin:6px 0 12px; }
+.translate-panel select { max-width:100%; padding:8px; border-radius:8px; color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); }
+.translate-status:empty { display:none; }
+.coin-icon { position:relative; overflow:hidden; }
+.coin-icon img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:var(--surface); }
+.market-chart-card { margin-top:20px; padding:clamp(20px,3vw,32px); border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface); }
+.market-chart-header { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; }
+.market-chart-header h3 { margin:4px 0; font-size:22px; letter-spacing:-.03em; }
+.market-chart-header p, .chart-note { font-size:13px; color:var(--muted); margin:4px 0; }
+.market-chart-header label { display:grid; gap:6px; font-size:12px; color:var(--muted); font-weight:650; }
+.market-chart-header select { font:inherit; min-width:135px; padding:10px; color:var(--ink); background:var(--surface-soft); border:1px solid var(--line); border-radius:var(--r-xs); }
+.market-chart-summary { display:flex; align-items:baseline; gap:12px; margin-top:22px; }
+.market-chart-summary strong { font-size:26px; letter-spacing:-.03em; }
+.market-chart-summary span { font-size:13px; font-weight:700; }
+.market-chart-svg { display:block; width:100%; height:160px; margin-top:16px; overflow:visible; }
+.market-chart-line { fill:none; stroke:var(--ink); stroke-width:2; vector-effect:non-scaling-stroke; stroke-linejoin:round; }
+.market-chart-area { fill:var(--ink); opacity:.06; }
+.chart-footer { display:flex; justify-content:space-between; gap:8px; color:var(--faint); font-size:11px; margin:10px 0 18px; }
+.chart-footer span:nth-child(2) { text-align:center; }
+.page-hero { padding:clamp(48px,8vw,110px) 0; }
+.page-hero .h-section { max-width:850px; margin:14px 0; }
+.page-hero .lede { max-width:700px; }
+.page-back { display:block; color:var(--muted); font-size:13px; margin-bottom:36px; }
+.page-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:56px; }
+.page-card, .page-callout { padding:28px; border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface-soft); }
+.page-card h2, .page-callout h2 { font-size:22px; margin:20px 0 10px; letter-spacing:-.03em; }
+.page-card p, .page-callout p, .faq-list p { color:var(--muted); line-height:1.7; font-size:15px; }
+.page-card a, .faq-list a { display:inline-block; font-size:14px; font-weight:700; margin-top:18px; }
+.page-number { font-size:11px; color:var(--faint); font-weight:750; letter-spacing:.08em; }
+.page-callout { margin-top:48px; }
+.page-callout h2 { margin-top:0; }
+.page-callout .btn { margin-top:20px; }
+.faq-list { max-width:850px; margin-top:50px; border-top:1px solid var(--line); }
+.faq-list details { padding:22px 0; border-bottom:1px solid var(--line); }
+.faq-list summary { cursor:pointer; font-weight:700; font-size:17px; }
+.faq-list p { margin-top:15px; }
+@media(max-width:700px) { .page-grid { grid-template-columns:1fr; } .market-chart-svg { height:120px; } }
+@media(max-width:480px) { .translate-toggle span { display:none; } .translate-toggle { width:38px; height:38px; justify-content:center; } }

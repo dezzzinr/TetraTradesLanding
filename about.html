@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — TetraTrades</title>
+  <meta name="description" content="TetraTrades is a modern crypto trading platform with live market data, one-click copy trading, automated strategy bots and leveraged positions. Deposit and trade in your own currency. Get started free in minutes." />
+  <meta name="keywords" content="TetraTrades, crypto trading platform, copy trading, trading bots, bitcoin trading, ethereum, leveraged trading, crypto exchange" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TetraTrades" />
+  <meta property="og:title" content="TetraTrades — One platform to trade, copy and automate" />
+  <meta property="og:description" content="Live markets, copy trading, automated bots and multi-currency funding. Start free and trade in your own currency." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Applied before first paint: marks JS availability and restores the saved
+       theme so dark-mode visitors never see a white flash. Without JS the
+       stylesheet's prefers-color-scheme fallback handles theming instead. -->
+  <script>
+    (function () {
+      try {
+        var k = "tetratrades_theme";
+        var s = localStorage.getItem(k);
+        var t = (s === "light" || s === "dark")
+          ? s
+          : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) { /* storage unavailable; CSS media fallback applies */ }
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+  <script src="config.js" defer></script>
+  <script src="site.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Stroke + brand icon sprite. Referenced everywhere as
+       <svg class="ic"><use href="#i-name"/></svg> so icons cost one definition. -->
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-tetra" viewBox="0 0 24 24"><path d="M12 2.5 21 9l-9 12.5L3 9z"/><path d="M3 9h18"/><path d="M12 2.5v19"/></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-landmark" viewBox="0 0 24 24"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-circle-play" viewBox="0 0 24 24"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"/><circle cx="12" cy="12" r="10"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+    <symbol id="i-trending-up" viewBox="0 0 24 24"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></symbol>
+    <symbol id="i-trending-down" viewBox="0 0 24 24"><path d="M16 17h6v-6"/><path d="m22 17-8.5-8.5-5 5L2 7"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></symbol>
+    <symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-radio" viewBox="0 0 24 24"><path d="M16.247 7.761a6 6 0 0 1 0 8.478"/><path d="M19.075 4.933a10 10 0 0 1 0 14.134"/><path d="M4.925 19.067a10 10 0 0 1 0-14.134"/><path d="M7.753 16.239a6 6 0 0 1 0-8.478"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-earth" viewBox="0 0 24 24"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+    <symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></symbol>
+    <symbol id="s-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+    <symbol id="s-telegram" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm4.962 7.224c.1-.002.321.023.465.14a.5.5 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+    <symbol id="s-discord" viewBox="0 0 24 24"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03M8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418m7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418"/></symbol>
+    <symbol id="s-youtube" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814M9.545 15.568V8.432L15.818 12z"/></symbol>
+  </svg>
+
+  <input type="checkbox" id="nav-toggle" class="nav-check" />
+
+  <header class="nav" id="nav">
+    <div class="shell nav-inner">
+      <a href="index.html" class="brand" aria-label="TetraTrades — home">
+        <span class="brand-tile" aria-hidden="true">
+          <svg class="ic" width="18" height="18" style="stroke-width:1.9"><use href="#i-tetra"/></svg>
+        </span>
+        <span class="brand-name">Tetra<span>Trades</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="index.html#markets">Markets</a>
+        <a class="nav-link" href="index.html#platform">Platform</a>
+        <a class="nav-link" href="index.html#how">How it works</a>
+        <a class="nav-link" href="index.html#features">Features</a>
+        <a class="nav-link" href="index.html#plans">Plans</a>
+      </nav>
+
+      <span class="nav-spacer"></span>
+
+      <div class="nav-actions">
+        <div class="translate-wrap"><button class="translate-toggle" type="button" aria-expanded="false" aria-controls="translate-panel">🌐 <span>Translate</span></button><div id="translate-panel" class="translate-panel" hidden><strong>Translate this page</strong><p>Machine translation by Google. Content may not be exact.</p><div id="google_translate_element"></div><p class="translate-status" role="status"></p></div></div>
+        <button type="button" class="icon-round" id="theme-toggle" aria-label="Switch theme" title="Switch theme">
+          <svg class="ic ic-sun" width="18" height="18"><use href="#i-sun"/></svg>
+          <svg class="ic ic-moon" width="18" height="18"><use href="#i-moon"/></svg>
+        </button>
+        <a class="btn btn--quiet btn--sm" href="https://tetra-trades.vercel.app/">Log in</a>
+        <a class="btn btn--primary btn--sm" href="https://tetra-trades.vercel.app/">
+          Sign up <svg class="ic" width="15" height="15"><use href="#i-arrow-right"/></svg>
+        </a>
+        <label class="icon-round nav-burger" for="nav-toggle" title="Menu">
+          <svg class="ic ic-open" width="19" height="19"><use href="#i-menu"/></svg>
+          <svg class="ic ic-close" width="19" height="19"><use href="#i-x"/></svg>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer" id="drawer">
+    <a href="index.html#markets">Markets</a>
+    <a href="index.html#platform">Platform</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#plans">Plans</a>
+    <a href="markets.html">Market overview</a>
+    <a href="about.html">About</a>
+    <a href="help.html">Help centre</a>
+    <div class="drawer-cta">
+      <a class="btn btn--ghost" href="https://tetra-trades.vercel.app/">Log in</a>
+      <a class="btn btn--primary" href="https://tetra-trades.vercel.app/">
+        Create free account <svg class="ic" width="16" height="16"><use href="#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <main id="top">
+<section class="page-hero"><div class="shell"><a class="page-back" href="index.html">← Home</a><span class="eyebrow">About TetraTrades</span><h1 class="h-section">A clearer way to explore crypto.</h1><p class="lede">TetraTrades brings market information, trading tools and automation together in one responsive web experience.</p><div class="page-grid"><article class="page-card"><span class="page-number">01 / DISCOVER</span><h2>See the market</h2><p>Explore selected crypto assets, recent price changes and historical trends with data from CoinGecko.</p><a href="markets.html">Explore markets →</a></article><article class="page-card"><span class="page-number">02 / EXPLORE</span><h2>Find your workflow</h2><p>Learn about the platform’s trading, copy trading and bot features before deciding what works for you.</p><a href="index.html#platform">Explore the platform →</a></article><article class="page-card"><span class="page-number">03 / LEARN</span><h2>Start thoughtfully</h2><p>Crypto prices can move quickly. Understand the risks, review platform terms and never trade more than you can afford to lose.</p><a href="help.html">Visit the help centre →</a></article></div><div class="page-callout"><h2>Ready to explore?</h2><p>Open TetraTrades in your browser to learn more about the available features.</p><a class="btn btn--primary" href="https://tetra-trades.vercel.app/">Open the app →</a></div></div></section>
+  </main>
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand" aria-label="TetraTrades — home">
+            <span class="brand-tile" aria-hidden="true"><svg class="ic" width="17" height="17" style="stroke-width:1.9"><use href="#i-tetra"/></svg></span>
+            <span class="brand-name">Tetra<span>Trades</span></span>
+          </a>
+          <p>A modern crypto trading platform: live markets, copy trading, automated bots and funding in your own currency.</p>
+          <div style="display:flex;gap:8px;margin-top:18px">
+            <a class="icon-round" href="#" aria-label="X (Twitter)" title="X (Twitter)"><svg class="ic-fill" width="16" height="16"><use href="#s-x"/></svg></a>
+            <a class="icon-round" href="#" aria-label="Telegram" title="Telegram"><svg class="ic-fill" width="16" height="16"><use href="#s-telegram"/></svg></a>
+            <a class="icon-round" href="#" aria-label="Discord" title="Discord"><svg class="ic-fill" width="16" height="16"><use href="#s-discord"/></svg></a>
+            <a class="icon-round" href="#" aria-label="YouTube" title="YouTube"><svg class="ic-fill" width="16" height="16"><use href="#s-youtube"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <a href="index.html#platform">Spot trading</a><a href="index.html#platform">Margin &amp; leverage</a><a href="index.html#platform">Copy trading</a><a href="index.html#platform">Trading bots</a><a href="index.html#features">Price alerts</a><a href="markets.html">Markets</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get started</h4>
+          <a href="https://tetra-trades.vercel.app/">Create an account</a><a href="https://tetra-trades.vercel.app/">Log in</a><a href="https://tetra-trades.vercel.app/">Open the web app</a><a href="index.html#how">How it works</a><a href="index.html#plans">Plans &amp; pricing</a><a href="https://tetra-trades.vercel.app/">Demo account</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">About TetraTrades</a><a href="index.html#features">Features</a><a href="index.html#features">Security</a><a href="index.html#features">Supported currencies</a><a href="index.html#markets">Status</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="help.html">Help centre</a><a href="help.html#contact" data-chat-link>Live chat</a><a href="help.html#contact">Contact us</a><a href="index.html#plans">Fees</a><a href="https://tetra-trades.vercel.app/">API docs</a>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <svg class="ic" width="15" height="15" style="color:var(--amber)"><use href="#i-triangle-alert"/></svg>
+        <span>Trading cryptocurrencies involves substantial risk and can result in the loss of your invested capital. Nothing on this site is financial advice. Leverage magnifies both gains and losses. TetraTrades is not available in every jurisdiction, and features shown may be limited by your plan.</span>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 TetraTrades. Built for curious traders.</span>
+        <ul>
+          <li><a href="https://tetra-trades.vercel.app/">Terms</a></li>
+          <li><a href="https://tetra-trades.vercel.app/">Privacy</a></li>
+          <li><a href="https://tetra-trades.vercel.app/">Cookies</a></li>
+          <li><a href="https://tetra-trades.vercel.app/">Risk disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

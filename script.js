@@ -295,8 +295,8 @@
         return (
           '<article class="coin-card">' +
           '<div class="coin-top">' +
-          '<span class="coin-icon">' + market.symbol.charAt(0) + "</span>" +
-          "<span><span class=\"coin-sym\">" + market.symbol + '/USDT</span><span class="coin-name">' + market.name + "</span></span>" +
+          '<span class="coin-icon">' + (market.image ? '<img src="' + market.image + '" alt="" loading="lazy" onerror="this.remove()">' : '') + market.symbol.charAt(0) + "</span>" +
+          "<span><span class=\"coin-sym\">" + market.symbol + '/USD</span><span class="coin-name">' + market.name + "</span></span>" +
           "</div>" +
           '<div class="coin-price num">' + formatPrice(market.price) + "</div>" +
           '<div class="coin-meta">' +
@@ -315,8 +315,8 @@
     if (!statusDot || !statusLabel) return;
     statusDot.setAttribute("data-state", state);
     var label =
-      state === "live" ? "Live prices" : state === "loading" ? "Fetching live prices" : "Sample prices — live feed unavailable";
-    if (state === "live" && updatedAt) {
+      state === "live" ? "Live prices" : state === "cached" ? "Cached prices — live feed unavailable" : state === "loading" ? "Fetching live prices" : "Sample prices — live feed unavailable";
+    if ((state === "live" || state === "cached") && updatedAt) {
       label += " · " + new Date(updatedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
     }
     statusLabel.textContent = label;
@@ -343,7 +343,7 @@
           var row = byId[meta.id];
           if (!row || typeof row.current_price !== "number") return;
           var raw = (row.sparkline_in_7d && row.sparkline_in_7d.price) || [];
-          var spark = raw.length >= 24 ? raw.slice(-24) : raw;
+          var spark = raw.filter(function (n) { return typeof n === "number" && Number.isFinite(n); });
           next.push({
             id: meta.id,
             symbol: meta.symbol,
@@ -351,6 +351,7 @@
                   price: row.current_price,
             change24h: typeof row.price_change_percentage_24h === "number" ? row.price_change_percentage_24h : 0,
             spark: spark,
+            image: typeof row.image === "string" && /^https:\/\/[^\s"<>]+$/.test(row.image) ? row.image : "",
           });
         });
         if (next.length === 0) throw new Error("no rows");
@@ -365,10 +366,12 @@
         if (hit && Array.isArray(hit.value) && hit.value.length) {
           // rate-limited or offline, but we have quotes from this session
           markets = hit.value;
-          state = "live";
+          state = "cached";
           updatedAt = hit.ts;
           applyLive(markets);
-        } else if (state !== "live") {
+        } else if (state === "live" || state === "cached") {
+          state = "cached";
+        } else {
           markets = SAMPLE;
           state = "sample";
           updatedAt = null;
@@ -377,8 +380,35 @@
       .then(function () {
         renderRail();
         renderStatus();
+        renderMarketChart();
       });
   }
+
+  /* Seven-day history uses the sparkline returned by /coins/markets, not a mock graph. */
+  var chartSelect = doc.getElementById("chart-coin");
+  function renderMarketChart() {
+    if (!chartSelect) return;
+    var market = markets.find(function (m) { return m.id === chartSelect.value; });
+    var line = doc.getElementById("chart-line");
+    var area = doc.getElementById("chart-area");
+    var status = doc.getElementById("chart-status");
+    var price = doc.getElementById("chart-price");
+    var change = doc.getElementById("chart-change");
+    if (!market || !market.spark || market.spark.length < 2 || state === "sample" || state === "loading") {
+      line.setAttribute("d", ""); area.setAttribute("d", "");
+      price.textContent = "—"; change.textContent = "";
+      status.textContent = state === "loading" ? "Loading market data…" : "Chart unavailable";
+      return;
+    }
+    var points = market.spark, min = Math.min.apply(null, points), max = Math.max.apply(null, points), span = max - min || 1;
+    var path = points.map(function (v, i) { return (i ? "L" : "M") + (i * 320 / (points.length - 1)).toFixed(2) + "," + (94 - (v - min) / span * 88).toFixed(2); }).join(" ");
+    line.setAttribute("d", path); area.setAttribute("d", path + " L320,100 L0,100 Z");
+    price.textContent = formatPrice(market.price);
+    change.textContent = (market.change24h >= 0 ? "+" : "") + market.change24h.toFixed(2) + "% · 24h";
+    change.className = market.change24h >= 0 ? "up" : "down";
+    status.textContent = state === "cached" ? "Cached CoinGecko data" : "CoinGecko · 7-day history";
+  }
+  if (chartSelect) chartSelect.addEventListener("change", renderMarketChart);
 
   sortButtons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -388,6 +418,7 @@
       });
       if (rail) rail.setAttribute("aria-labelledby", button.id);
       renderRail();
+      renderMarketChart();
     });
   });
 
@@ -476,7 +507,7 @@
 
     var totalEl = doc.querySelector("[data-portfolio-total]");
     var cash = totalEl ? parseFloat(totalEl.getAttribute("data-cash")) || 0 : 0;
-    if (totalEl && total > 0) totalEl.textContent = money2(cash + total);
+    if (totalEl && total > 0) doc.querySelectorAll("[data-portfolio-total]").forEach(function (el) { el.textContent = money2((parseFloat(el.getAttribute("data-cash")) || 0) + total); });
 
     var todayEl = doc.querySelector("[data-portfolio-today]");
     if (todayEl && previous > 0) {
@@ -485,7 +516,7 @@
       todayEl.textContent =
         (delta >= 0 ? "+" : "-") + money2(Math.abs(delta)).replace("-", "") +
         " (" + (delta >= 0 ? "+" : "") + pct.toFixed(2) + "%) today";
-      setDirection(todayEl.parentElement, delta >= 0);
+      doc.querySelectorAll("[data-portfolio-today]").forEach(function (el) { el.textContent = todayEl.textContent; setDirection(el.parentElement, delta >= 0); });
     }
 
     var pnlEl = doc.querySelector("[data-portfolio-pnl]");
@@ -494,7 +525,7 @@
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-      setDirection(pnlEl, pnl >= 0);
+      doc.querySelectorAll("[data-portfolio-pnl]").forEach(function (el) { el.textContent = pnlEl.textContent; setDirection(el, pnl >= 0); });
     }
 
     doc.querySelectorAll("[data-position-pnl]").forEach(function (el) {
@@ -551,12 +582,19 @@
           texts.count = data.active_cryptocurrencies.toLocaleString("en-US");
         }
         applyGlobal(texts);
+        var globalStatus = doc.getElementById("global-status");
+        if (globalStatus) globalStatus.textContent = "Global data updated · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
         cacheSet("tt_global", texts);
       })
       .catch(function () {
         var hit = cacheGet("tt_global");
-        if (hit && hit.value) applyGlobal(hit.value);
-        /* otherwise keep the baked-in figures */
+        var globalStatus = doc.getElementById("global-status");
+        if (hit && hit.value) {
+          applyGlobal(hit.value);
+          if (globalStatus) globalStatus.textContent = "Cached global data · " + new Date(hit.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        } else if (globalStatus) {
+          globalStatus.textContent = "Global data unavailable or stale";
+        }
       });
   }
 })();
